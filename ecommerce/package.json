@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "aos": "^2.3.4",
+    "flowbite": "^2.3.0",
     "flowbite-react": "^0.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.2",
+    "sweetalert2": "^11.10.6",
     "swiper": "^11.0.7"
   },
   "devDependencies": {

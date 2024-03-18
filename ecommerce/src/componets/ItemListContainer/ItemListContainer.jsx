@@ -23,17 +23,11 @@ const ItemListContainer = ({titulo}) => {
         fetchData();
     }, [categoryId]);
 
-    console.log('item list container: ', products, titulo)
-
-    //const selectedLetter = "a";
-
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleSidebar = () => {
       setIsOpen(!isOpen);
     };
-
-    console.log('is open: ', isOpen)
 
   return (
     <>
@@ -57,7 +51,7 @@ const ItemListContainer = ({titulo}) => {
         <div className='relative'>
           <aside 
             id="separator-sidebar" 
-            className={`absolute top-0 left-0 py-4 z-40 w-64 h-screen transition-transform lg:translate-x-0 
+            className={`absolute top-0 left-0 py-4 lg:ml-2 z-40 w-64 h-screen transition-transform lg:translate-x-0 
             ${isOpen ? '' : '-translate-x-full'}`} 
             aria-label="Sidebar"
           >

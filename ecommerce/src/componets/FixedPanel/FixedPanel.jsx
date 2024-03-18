@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import icons from './icons/icons'
 import { Link } from 'react-router-dom'
+import CartWidget from '../CartWidget/CartWidget';
+import FixedCartList from './FixedCart/FixedCartList';
 
 function FixedPanel() {
 
@@ -17,6 +19,8 @@ function FixedPanel() {
     setOpened(false);
   }
 
+  console.log(asideContent)
+
   return (
     <div>
       <div  className='fixed right-0 z-10 transform -translate-y-1/2 top-1/2'>
@@ -27,12 +31,8 @@ function FixedPanel() {
         onClick={()=> openAside('cart')}
         className='flex items-center justify-center w-10 h-10 p-1 transition-all opacity-50 bg-ered md:h-14 md:w-14 hover:opacity-100'
         >
-          <div className='absolute flex items-center justify-center w-10 h-10 p-1 md:h-14 md:w-14'>
-            <img src={icons.carrito} className='w-7' alt="carrito" />
-            <span className="sr-only">Notifications</span>
-            <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-black border-2 border-white rounded-full -top-2 -start-2 dark:border-gray-900">20</div>
-          </div>
-          <Link to={'/cart'} ></Link>
+          <CartWidget icon={icons} />
+          {/* <Link to={'/cart'} ></Link> */}
         </button>
         <button 
           data-drawer-target="default-sidebar" 
@@ -60,10 +60,22 @@ function FixedPanel() {
           aria-label="Sidebar"
           >
             <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-              <button onClick={closeAside} className='px-4 py-2 text-white bg-black' >Cerrar Aside</button> 
-              <h2>{asideContent}</h2>
+              <div className='flex justify-between gap-2 m-2'>
+                <Link to={`/${asideContent}`}><button onClick={closeAside} className='px-4 py-2 text-white bg-black'>Ir a {asideContent}</button></Link>
+                <button onClick={closeAside} className='px-2 py-1 text-white bg-black' >
+                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-x">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" />
+                  </svg>
+                </button> 
+              </div>
+              <h2 className='text-2xl text-center'>{asideContent}</h2>
+
+              <div>
+                {
+                  asideContent && (<FixedCartList />)
+                }
+              </div>
               
-              <Link to={`/${asideContent}`}><button onClick={closeAside} className='px-4 py-2 text-white bg-black'>Ir a {asideContent}</button></Link>
             </div>
         </aside>)
       }

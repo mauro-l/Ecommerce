@@ -1,12 +1,13 @@
 
 
 import Banner from '../Banner/Banner';
-import CartItem from './CartList/CartItem';
+//import CartItem from './CartList/CartItem';
+import CartList from './CartList/CartList';
 //import ItemCount from '../ItemCount/ItemCount';
 import arrow from './arrow.svg'
 import { Link } from 'react-router-dom';
 
-function WishList() {
+export default function CartListContainer() {
   return (
     <>
         <Banner greeting={'Carrito'} />
@@ -43,7 +44,7 @@ function WishList() {
                     </thead>
                     <tbody>
                         {/* se renderiza mediante componente cartItem */}
-                        <CartItem />
+                        <CartList />
                     </tbody>
                 </table>
             </article>
@@ -113,5 +114,3 @@ function WishList() {
     </>
   )
 }
-
-export default WishList
