@@ -20,7 +20,7 @@ export default function CartItem({product}) {
                 <img src={product.img} className="h-20 max-w-full max-h-full" alt={product.name}/>
                 <div className="px-3 py-2 text-xl text-gray-900 md:px-6 md:py-4 md:font-normal dark:text-white">
                     <Tooltip content={`${product.name}`} >
-                        <p className='max-w-md cursor-default'>
+                        <p className='cursor-default md:max-w-md max-w-48'>
                             {product.name}
                         </p>
                     </Tooltip>
