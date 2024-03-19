@@ -19,8 +19,6 @@ function FixedPanel() {
     setOpened(false);
   }
 
-  console.log(asideContent)
-
   return (
     <div>
       <div  className='fixed right-0 z-10 transform -translate-y-1/2 top-1/2'>

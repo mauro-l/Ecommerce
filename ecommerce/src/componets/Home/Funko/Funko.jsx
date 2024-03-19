@@ -30,15 +30,15 @@ function Funko() {
     }, [])
 
     let cardList = [...funkoCard];
-    let newFunkoCards = cardList.slice(2, 9);
+    let newFunkoCards = cardList;
 
     return (
-        <section className='background flex flex-col md:flex-row mt-8'>
-            <article className='flex flex-col justify-center mx-auto w-1/2 md:w-1/3 mt-3 md:p-4'>
-                <h3 className='text-3xl md:text-4xl text-tgray pt-3'>No te pierdas los mejores...</h3>
+        <section className='flex flex-col mt-8 background md:flex-row'>
+            <article className='flex flex-col justify-center w-1/2 mx-auto mt-3 md:w-1/3 md:p-4'>
+                <h3 className='pt-3 text-3xl md:text-4xl text-tgray'>No te pierdas los mejores...</h3>
                 <img src={funkoImg} alt="funkoLogo" />
             </article>
-            <article className='flex mx-auto justify-center items-center w-3/5 md:w-1/3 py-5'>
+            <article className='flex items-center justify-center w-3/5 py-5 mx-auto md:w-1/3'>
                 {swipperReady && (
                     <Swiper
                         effect={'coverflow'}

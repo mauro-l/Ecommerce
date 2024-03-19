@@ -8,7 +8,6 @@ import { CartContext } from "../Context/CartContext"
 
     function opened (){
         setIsClick(!isClick)
-        console.log('sirce')
     }
 
     return (

@@ -8,16 +8,16 @@ import WishList from "./componets/WishList/WishList"
 import ItemListContainer from "./componets/ItemListContainer/ItemListContainer"
 import ItemDetailContainer from './componets/ItemDetailContainer/ItemDetailContainer';
 import Checkout from './componets/Cart/Checkout/Checkout';
-import { CartContext } from './Context/CartContext';
-import { useState } from 'react';
+import { CartProvider } from './Context/CartContext';
+//import { useState } from 'react';
 import { FooterLog } from './utilities/FooterLog';
 import CartListContainer from './componets/Cart/CartListContainer';
-import ToastyText from './utilities/ToastyText';
+//import ToastyText from './utilities/ToastyText';
 
 
 function App() {
 
-  const [cart, setCart] = useState([]);
+  /* const [cart, setCart] = useState([]);
 
   const checkProductInCart = (product) =>{ 
     return cart.some(prod => prod.id === product.id); 
@@ -67,14 +67,22 @@ function App() {
     }
   }
 
+  const productsInCart = () =>{
+    return cart.reduce((acc, prod) => acc + prod.quantity, 0)
+  }
+
   const removeItemCart = (product) => {
     setCart(prevState => prevState.filter(item => item.id !== product.id));
   }
 
+  const clearCart = () =>{
+    setCart([]);
+  } */
+
 
   return (
 
-    <CartContext.Provider value={{cart, setCart, addCart, checkProductInCart, removeItemCart, subtractQuantity}}>
+    <CartProvider>
       <BrowserRouter>
           <NavBar/>
           <Routes>
@@ -90,7 +98,7 @@ function App() {
           <Footer />
           <FooterLog />
       </BrowserRouter>
-    </CartContext.Provider>
+    </CartProvider>
   )
 }
 
