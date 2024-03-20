@@ -10,7 +10,9 @@ const ItemDetailContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { typeId, productId } = useParams();
 
-  console.log( 'TIPOOO:', typeId, productId)
+  console.log( 'TIPOOO:', typeId, productId);
+  console.log('typeId; ', typeof typeId, typeId);
+  console.log('productID; ', typeof productId, productId);
 
   useEffect(()=>{
 
@@ -20,7 +22,7 @@ const ItemDetailContainer = () => {
         if(response){
           setProducts(response);
           setIsLoading(true);
-        }else{console.error('no hubo respuesta', response)}
+        }else{console.log('no hubo respuesta', response)}
       }catch (err) {console.log('Hubo un problema al renderizar el producto; ', err)}
     }
     fetchData()

@@ -19,7 +19,7 @@ export const getApiProducts = async (category) => {
             const data = await response.json();
             products = data.results;
         } catch (error) {
-            console.log('hubo un problema al traer los productos: ', error)
+            console.log('hubo un problema al traer los productos de la libreria: ', error)
         }
     
     }
@@ -29,7 +29,7 @@ export const getApiProducts = async (category) => {
             const data = await response.json();
             products = data.results;
         } catch (error) {
-            console.log('hubo un problema al traer los productos: ', error)
+            console.log('hubo un problema al traer los productos de la comiqueria: ', error)
         }
     }
 
@@ -37,7 +37,7 @@ export const getApiProducts = async (category) => {
         try{
             products = await getProducts();
         } catch (error){
-            console.log('error al cargar los productos: ', error)
+            console.log('error al cargar los funkos: ', error)
         }
     }
 

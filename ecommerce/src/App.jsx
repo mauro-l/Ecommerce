@@ -12,6 +12,7 @@ import { CartProvider } from './Context/CartContext';
 //import { useState } from 'react';
 import { FooterLog } from './utilities/FooterLog';
 import CartListContainer from './componets/Cart/CartListContainer';
+import ErrorWeb from './utilities/ErrorWeb';
 //import ToastyText from './utilities/ToastyText';
 
 
@@ -91,6 +92,7 @@ function App() {
             <Route path='/shop/category/:categoryId' element={<ItemListContainer />} />
             <Route path='/:nameId/:typeId/:productId' element={<ItemDetailContainer />} />
             <Route path='/fav' element={<WishList />} />
+            <Route path='/*' element={<ErrorWeb />} />
             <Route path='/cart' element={<CartListContainer />} />
             <Route path='/cart/checkout' element={<Checkout />} />
           </Routes>

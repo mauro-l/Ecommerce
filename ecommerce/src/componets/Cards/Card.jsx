@@ -5,6 +5,7 @@ import StartRating from '../Starts/StartRating'
 import addCartSvg from '../icons/shopping-cart-plus.svg'
 import { useContext } from 'react';
 import { CartContext } from '../../Context/CartContext';
+import shortenName from '../../utilities/nameUtils';
 
 //function Card({id, img, imgML, category, name, title, price}) {
 
@@ -14,11 +15,16 @@ export default function Card({id, img, imgML, category, name, title, price, stoc
     
     const { addCart, checkProductInCart, removeItemCart } = useContext(CartContext);
 
-    const nameUrl = name ? name.replace(/\. /g, "-").replace(/\s/g, "-") : null;
-    const titleUrl = title? title.replace(/-/g, "").replace(/\s+/g, "-") : null;
+    /* const nameUrl = name ? name.replace(/\. /g, "-").replace(/\s/g, "-") : null;
+    const titleUrl = title? title.replace(/-/g, "").replace(/\s+/g, "-") : null; */
     
+    /* const itemNameUrl = nameUrl ? nameUrl : titleUrl; */
+    
+    const itemNameUrl = shortenName(name, title);
+
+    console.log('no se inunda maaas; ', itemNameUrl);
+
     const itemName = name? name : title;
-    const itemNameUrl = nameUrl ? nameUrl : titleUrl;
     const pic =!category ? imgML : img;
     const newStock = stocks || mlStock
     
@@ -53,8 +59,6 @@ export default function Card({id, img, imgML, category, name, title, price, stoc
                                 >
                                 <img src={addCartSvg} className='me-2' alt="cart-plus svg" />
                                 {productInCart ? 'QUITAR DEL CARRITO' : 'AGREGAR AL CARRITO' }
-                                {/* AGREGAR AL CARRITO */}
-                                {/* <Link to={`/shop/p/${id}`}></Link> */}
                             </button>
                         </div>
                     </div>
