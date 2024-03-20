@@ -6,24 +6,37 @@ import ItemList from "./ItemList/ItemList";
 import { useParams } from 'react-router-dom';
 import { getApiProducts } from '../../services/products';
 import FilterShop from './Filter/FilterShop';
+//import LoadingCard from '../Cards/LoadingCard';
+import EskeletonCard from '../Cards/EskeletonCard';
 
-const ItemListContainer = ({titulo}) => {
+const ItemListContainer = () => {
 
+    const [isOpen, setIsOpen] = useState(false);
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false)
     const { categoryId } = useParams();
+    console.log(categoryId)
     
     useEffect(()=>{
-
+      setLoading(true)
       const fetchData = async () => {
         try{
           const product = await getApiProducts(categoryId);
           setProducts(product);
         } catch (error) {console.log(error)}
+        finally{
+          setLoading(false)
+        }
       }
         fetchData();
     }, [categoryId]);
 
-    const [isOpen, setIsOpen] = useState(false);
+    /* if(loading){
+      return <EskeletonCard />
+    } */
+
+
+    
 
     const toggleSidebar = () => {
       setIsOpen(!isOpen);
@@ -32,7 +45,7 @@ const ItemListContainer = ({titulo}) => {
   return (
     <>
         <Banner greeting={"Shop"} />
-        <h1 className="pt-8 pb-4 text-5xl font-bold text-center">Productos</h1>
+        <h1 className="pt-8 pb-4 text-5xl font-bold text-center">{ categoryId ? categoryId : 'Funkos'}</h1>
         <div className="flex justify-start w-full">
                 <button 
                   onClick={toggleSidebar} 
@@ -43,9 +56,12 @@ const ItemListContainer = ({titulo}) => {
                   className="inline-flex items-center p-2 mt-2 text-sm text-gray-500 rounded-lg ms-3 lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 >
                     <span className="sr-only">Open sidebar</span>
-                    <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-adjustments">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                        <path d="M6 4v4" /><path d="M6 12v8" /><path d="M10 16a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                        <path d="M12 4v10" /><path d="M12 18v2" /><path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M18 4v1" /><path d="M18 9v11" />
                     </svg>
+                    <p className='text-lg'>Filtros</p>
                 </button>
           </div>
         <div className='relative'>
@@ -60,15 +76,14 @@ const ItemListContainer = ({titulo}) => {
           <div className="p-4 lg:ml-64">
             
             <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-              <ItemList products={products} />
+              { loading ?
+                <EskeletonCard />
+                :
+                <ItemList products={products} />}
             </div>
           </div>
 
         </div>
-        {/* <div className='container flex px-8 py-5 pb-10 mx-auto mb-3'>
-          <Filters />
-          <ItemList products={products} />
-        </div> */}
     </>
 
   )

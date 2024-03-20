@@ -1,10 +1,14 @@
 
+//import assets
+import emptyGif from '../../../assets/products/tenor.gif'
+
 //import componentes
-import { useContext } from "react"
 import FixedCart from "./FixedCart"
-import { CartContext } from "../../../Context/CartContext"
 
 //context
+import { useContext } from "react"
+import { CartContext } from "../../../Context/CartContext"
+
 
 
 function FixedCartList() {
@@ -22,13 +26,20 @@ function FixedCartList() {
                     </tr>
                 </thead>
                 <tbody>
-                    { cart.map (prod =>(
+                    {   cart.length > 0 ?
+                        cart.map (prod =>(
                         <FixedCart 
                         key={prod.id}
                         product={prod}
                         removeToCart={()=>removeItemCart(prod)}
                         />
-                    ))}
+                        )) :
+                            <tr>
+                                <td className='flex justify-center'>
+                                    <img src={emptyGif} className='p-2 h-36' alt="no hay nada no existe" />
+                                </td>
+                            </tr>
+                }
                 </tbody>
             </table>
         </article>
