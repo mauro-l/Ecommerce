@@ -8,17 +8,19 @@ const ItemDetailContainer = () => {
 
   const [product, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { typeId, productId } = useParams();
+  //const { typeId, productId } = useParams();
+  const params = useParams();
+  console.log('parametros', params)
 
-  console.log( 'TIPOOO:', typeId, productId);
+  /* console.log( 'TIPOOO:', typeId, productId);
   console.log('typeId; ', typeof typeId, typeId);
-  console.log('productID; ', typeof productId, productId);
+  console.log('productID; ', typeof productId, productId); */
 
   useEffect(()=>{
 
     const fetchData = async () =>{
       try{
-        const response = await getApiDetails({typeId, productId})
+        const response = await getApiDetails(params)
         if(response){
           setProducts(response);
           setIsLoading(true);
@@ -27,7 +29,7 @@ const ItemDetailContainer = () => {
     }
     fetchData()
 
-  }, [productId])
+  }, [params])
 
 
   return (

@@ -11,7 +11,7 @@ import shortenName from '../../utilities/nameUtils';
 
     
     
-export default function Card({id, img, imgML, category, name, title, price, stocks, mlStock}) {
+export default function Card({id, image, imgML, category, name, title, price, stocks, mlStock}) {
     
     const { addCart, checkProductInCart, removeItemCart } = useContext(CartContext);
 
@@ -22,11 +22,13 @@ export default function Card({id, img, imgML, category, name, title, price, stoc
     
     const itemNameUrl = shortenName(name, title);
 
-    console.log('no se inunda maaas; ', itemNameUrl);
+    //console.log('no se inunda maaas; ', itemNameUrl);
 
     const itemName = name? name : title;
-    const pic =!category ? imgML : img;
+    const pic =!category ? imgML : image;
     const newStock = stocks || mlStock
+
+    //console.log('imagenes: ', id)
     
     const product = {
         id: id,

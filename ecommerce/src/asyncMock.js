@@ -164,8 +164,10 @@ export const getProducts = () =>{
 
 export const getProductsbyId = (productID) => {
     return new Promise((res) =>{
+        console.log('dentro del asyncmok: ', productID)
         setTimeout(()=>{
-            res(products.find(prod => prod.id === productID))
+            const product = products.find(prod => prod.id === productID)
+            res(product);
         }, 500)
     })
 }

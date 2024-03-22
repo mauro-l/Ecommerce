@@ -7,13 +7,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
-/* import 'swiper/css/pagination'; */
 
 import './funko.css';
 
 // import required modules
 import { EffectCoverflow, Autoplay } from 'swiper/modules';
-import { getProducts } from '../../../asyncMock';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../../services/config';
+//import { getProducts } from '../../../asyncMock';
 
 function Funko() {
 
@@ -21,13 +22,28 @@ function Funko() {
     const [swipperReady, setSwipperReady] = useState(false);
 
     useEffect (()=>{
+        const productRef = collection(db, 'funkos')
+
+        getDocs(productRef)
+        .then(res =>{
+
+            setFunkoCard(
+                res.docs.map(doc =>{
+                return {...doc.data(), id: doc.id}
+            })
+            )
+            setSwipperReady(true)
+        })
+        .catch(err => console.log('error al traer las funkos carrusel: ', err))
+    }, [])
+    /* useEffect (()=>{
         getProducts()
         .then(res => {
             setFunkoCard(res)
             setSwipperReady(true)
         })
         .catch(err => console.log('error al traer los productos: ', err))
-    }, [])
+    }, []) */
 
     let cardList = [...funkoCard];
     let newFunkoCards = cardList;
@@ -62,7 +78,7 @@ function Funko() {
                     >
                         {newFunkoCards.map(itemCard =>(
                             <SwiperSlide key={itemCard.id}>
-                                <img src={itemCard.img} />
+                                <img src={itemCard.image} />
                             </SwiperSlide>
                         ))}
                     </Swiper>

@@ -2,7 +2,9 @@
 /* api sector2810 mangas
 fetch(`https://api.mercadolibre.com/sites/MLA/search?seller_id=57113380`) */
 
-import { getProducts } from "../asyncMock";
+//import { getProducts } from "../asyncMock";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./config";
 
 /* api yenny ateneo libros
 fetch(`https://api.mercadolibre.com/sites/MLA/search?seller_id=186616505`) */
@@ -15,7 +17,7 @@ export const getApiProducts = async (category) => {
     
     if (category === 'libros'){
         try{
-            const response = await fetch(`https://api.mercadolibre.com/sites/MLA/search?seller_id=186616505&limit=16`);
+            const response = await fetch(`https://api.mercadolibre.com/sites/MLA/search?seller_id=186616505&category=MLA3025&limit=16`);
             const data = await response.json();
             products = data.results;
         } catch (error) {
@@ -32,12 +34,18 @@ export const getApiProducts = async (category) => {
             console.log('hubo un problema al traer los productos de la comiqueria: ', error)
         }
     }
-
+    
     if (category === 'funkos' || !category){
         try{
-            products = await getProducts();
+            const productRef = collection(db, "funkos");
+            const querySnapshot = await getDocs(productRef);
+            querySnapshot.forEach((doc) => {
+                console.log(doc)
+                products.push({ ...doc.data(), id: doc.id });
+            });
+
         } catch (error){
-            console.log('error al cargar los funkos: ', error)
+            console.log('error al traer los funkos: ', error)
         }
     }
 
