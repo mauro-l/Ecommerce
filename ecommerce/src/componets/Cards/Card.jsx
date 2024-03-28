@@ -5,13 +5,11 @@ import StartRating from '../Starts/StartRating'
 import addCartSvg from '../icons/shopping-cart-plus.svg'
 import { useContext } from 'react';
 import { CartContext } from '../../Context/CartContext';
-import shortenName from '../../utilities/nameUtils';
-
 //function Card({id, img, imgML, category, name, title, price}) {
 
     
     
-export default function Card({id, image, imgML, category, name, title, price, stocks, mlStock}) {
+export default function Card(product) {
     
     const { addCart, checkProductInCart, removeItemCart } = useContext(CartContext);
 
@@ -20,37 +18,37 @@ export default function Card({id, image, imgML, category, name, title, price, st
     
     /* const itemNameUrl = nameUrl ? nameUrl : titleUrl; */
     
-    const itemNameUrl = shortenName(name, title);
+    //const itemNameUrl = shortenName(name, title);
 
     //console.log('no se inunda maaas; ', itemNameUrl);
 
-    const itemName = name? name : title;
-    const pic =!category ? imgML : image;
-    const newStock = stocks || mlStock
+    // const itemName = name? name : title;
+    // const pic =!category ? imgML : image;
+    // const newStock = stocks || mlStock
 
     //console.log('imagenes: ', id)
     
-    const product = {
+    /* const product = {
         id: id,
         img :pic,
         name: itemName,
         price: price,
         stock: newStock
     };
-    
+     */
     // console.log(product)
     const productInCart = checkProductInCart(product);
 
     return (
         <div className="flex justify-center gap-3">
             <div className="relative max-w-xs w-60 bg-white border border-transparent md:hover:bg-[#F2F4F7] md:hover:border-x-2 md:hover:border-t-2 md:hover:border-gray-200 transition duration-300 dark:bg-gray-800 dark:border-gray-700 px-1 py-4 space-y-4 group">
-                <Link to={`/${itemNameUrl}/${category ? 'f' : 'p'}/${id}`}>
-                    <img width={400} height={600} className='object-contain object-center w-56 h-64 mx-auto' src={pic} alt={`${itemNameUrl}${id}`} />
+                <Link to={`/${product.url}/${product.category ? 'f' : 'p'}/${product.id}`}>
+                    <img className='object-fill mx-auto h-60' src={product.image} alt={`${product.url}${product.id}`} />
                 </Link>
                 <div className="px-4">
-                    <h5 className="mb-2 text-2xl tracking-tight text-gray-900 truncate cursor-default dark:text-white">{itemName}</h5>
+                    <h5 className="mb-2 text-2xl tracking-tight text-gray-900 truncate cursor-default dark:text-white">{product.name}</h5>
                     <div className="flex items-center justify-between min-h-4">
-                        <p className="text-2xl text-[#797C7F] dark:text-white text-center mr-4">${price}</p>
+                        <p className="text-2xl text-[#797C7F] dark:text-white text-center mr-4">${product.price}</p>
                         <StartRating />
                     </div>
                     <div className='absolute left-0 z-10 lg:opacity-0 bg-white lg:bg-tgray lg:border-b-2 lg:border-x-2 md:border-gray-200 group-hover:opacity-100 transition-opacity duration-300 px-4 pb-4 w-60 -m-[2px]'>

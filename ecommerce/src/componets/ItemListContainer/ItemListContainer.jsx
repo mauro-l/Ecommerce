@@ -1,41 +1,30 @@
 
 import Banner from '../Banner/Banner'
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import ItemList from "./ItemList/ItemList";
 //import Filters from './Filter/Filters';
 import { useParams } from 'react-router-dom';
-import { getApiProducts } from '../../services/products';
+//import { getApiProducts } from '../../services/products';
 import FilterShop from './Filter/FilterShop';
 //import LoadingCard from '../Cards/LoadingCard';
 import EskeletonCard from '../Cards/EskeletonCard';
+import { useShop } from '../../hooks/useShop';
 
 const ItemListContainer = () => {
 
     const [isOpen, setIsOpen] = useState(false);
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(false)
+    const [sort, setSort] = useState('default')
     const { categoryId } = useParams();
-    
-    useEffect(()=>{
-      setLoading(true)
-      const fetchData = async () => {
-        try{
-          const product = await getApiProducts(categoryId);
-          setProducts(product);
-        } catch (error) {console.log(error)}
-        finally{
-          setLoading(false)
-        }
-      }
-        fetchData();
-    }, [categoryId]);
 
-    /* if(loading){
-      return <EskeletonCard />
-    } */
+    const { loading, products } = useShop(categoryId, sort)
 
-
-    
+    const handleSortChange = (e) =>{
+      console.log('antes de; ', sort)
+      console.log('antes del setsort; ', e.target.value)
+      setSort(e.target.value)
+      console.log('despues del set; ', e.target.value)
+      console.log('sort; ', sort);
+    }
 
     const toggleSidebar = () => {
       setIsOpen(!isOpen);
@@ -45,7 +34,8 @@ const ItemListContainer = () => {
     <>
         <Banner greeting={"Shop"} />
         <h1 className="pt-8 pb-4 text-5xl font-bold text-center">{ categoryId ? categoryId : 'Funkos'}</h1>
-        <div className="flex justify-start w-full">
+        <div className="flex items-center justify-between w-full">
+          <div>
                 <button 
                   onClick={toggleSidebar} 
                   data-drawer-target="separator-sidebar" 
@@ -63,6 +53,14 @@ const ItemListContainer = () => {
                     <p className='text-lg'>Filtros</p>
                 </button>
           </div>
+          <div className="inline-flex items-center p-2 mt-2 text-sm text-gray-500 rounded-lg ms-3 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+            <select name="sort" className='rounded-xl border-tgray' onChange={handleSortChange} value={sort}>
+              <option value="default">Más relevantes</option>
+              <option value="asc">Nombre Ascendente</option>
+              <option value="desc">Nombre Descendente</option>
+            </select>
+          </div>
+        </div>
         <div className='relative'>
           <aside 
             id="separator-sidebar" 
@@ -73,12 +71,11 @@ const ItemListContainer = () => {
             <FilterShop />
           </aside>
           <div className="p-4 lg:ml-64">
-            
             <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
               { loading ?
                 <EskeletonCard />
                 :
-                <ItemList products={products} />}
+                <ItemList products={ products } />}
             </div>
           </div>
 

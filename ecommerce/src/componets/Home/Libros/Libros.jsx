@@ -1,32 +1,21 @@
 
-import { useEffect, useState } from "react"
-import { getProducts } from "../../../asyncMock"
 import Libro from "./Libro";
+import useFetchData from "../../../hooks/useFetchData";
 
 function Libros() {
 
-    const [book, getBook] = useState([]);
-    const [bookUpdate, getBookUpdate] = useState(false)
-
-    useEffect (()=>{
-        getProducts()
-        .then(res=>{
-            getBook(res)
-            getBookUpdate(true)
-        })
-        .catch(err=>console.log('Error al cargar los libros: ', err))
-    },[])
-
-    const bookList = [...book];
-    const newBooks = bookList.splice(0,4);
+    const { products, ready } = useFetchData('books', 4);
+    console.log('SE RENDERISA HOME LIBROS')
+    const newBooks = [...products];
     const simpleBook = newBooks.shift();
-  return (
-    <div>
-        {bookUpdate && (
-            <Libro books={newBooks} simple={simpleBook} />
-        )}
-    </div>
-  )
+
+    return (
+        <div>
+            {ready && (
+                <Libro books={newBooks} simple={simpleBook} />
+            )}
+        </div>
+    )
 }
 
 export default Libros

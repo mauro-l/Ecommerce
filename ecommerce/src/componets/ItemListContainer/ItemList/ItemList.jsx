@@ -3,12 +3,7 @@ import Card from "/src/componets/Cards/Card"
 
 const ItemList = ({products}) => {
 
-  return (
-    <div className="flex flex-wrap justify-center">
-        {products.map(prod =>{
-          let url = prod.thumbnail_id ? `https://http2.mlstatic.com/D_NQ_NP_${prod.thumbnail_id}-O.webp` : null;
-          return(
-            <Card key={prod.id}  
+  {/* <Card key={prod.id}  
                   id={prod.id} 
                   image={prod.image || null} 
                   imgML={`${url}`} 
@@ -18,8 +13,14 @@ const ItemList = ({products}) => {
                   price={prod.price} 
                   stocks={prod.stock || null}
                   mlStock={prod.order_backend || null}
-              />)}
+              /> */}
 
+  return (
+    <div className="flex flex-wrap justify-center">
+        {products.map(prod =>{
+          return( 
+            <Card key={prod.id} {...prod} />
+            )}
           )
         } 
     </div>

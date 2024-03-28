@@ -1,50 +1,20 @@
 
-import funkoImg from './FunkoPop.webp'
-import { useEffect, useState } from 'react';
-// Import Swiper React components
+// Swiper 
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
+import { EffectCoverflow, Autoplay } from 'swiper/modules';
 
+import funkoImg from './FunkoPop.webp'
 import './funko.css';
 
-// import required modules
-import { EffectCoverflow, Autoplay } from 'swiper/modules';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../../services/config';
-//import { getProducts } from '../../../asyncMock';
+
+//hooks
+import useFunkos from '../../../hooks/useFunkos';
 
 function Funko() {
-
-    const [funkoCard, setFunkoCard] = useState([]);
-    const [swipperReady, setSwipperReady] = useState(false);
-
-    useEffect (()=>{
-        const productRef = collection(db, 'funkos')
-
-        getDocs(productRef)
-        .then(res =>{
-
-            setFunkoCard(
-                res.docs.map(doc =>{
-                return {...doc.data(), id: doc.id}
-            })
-            )
-            setSwipperReady(true)
-        })
-        .catch(err => console.log('error al traer las funkos carrusel: ', err))
-    }, [])
-    /* useEffect (()=>{
-        getProducts()
-        .then(res => {
-            setFunkoCard(res)
-            setSwipperReady(true)
-        })
-        .catch(err => console.log('error al traer los productos: ', err))
-    }, []) */
-
+    const { funkoCard, swipperReady } = useFunkos();
+    console.log('SE RENDERISA CARRUSEL FUNKOS')
     let cardList = [...funkoCard];
     let newFunkoCards = cardList;
 
@@ -76,11 +46,16 @@ function Funko() {
                         modules={[EffectCoverflow, Autoplay]}
                         className="mySwiper"
                     >
-                        {newFunkoCards.map(itemCard =>(
+                        {newFunkoCards.map((itemCard, index) =>(
+                            <SwiperSlide key={index}>
+                                <img src={itemCard.image} />
+                            </SwiperSlide>
+                        ))}                                                
+                        {newFunkoCards.map((itemCard) =>(
                             <SwiperSlide key={itemCard.id}>
                                 <img src={itemCard.image} />
                             </SwiperSlide>
-                        ))}
+                        ))}                                                
                     </Swiper>
                 )}
             </article>

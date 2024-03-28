@@ -15,7 +15,7 @@ function FilterShop() {
     return (
         
         <>
-            <div className="h-full px-3 py-2 overflow-y-auto border-2 border-gray-300 rounded-xl bg-gray-50 lg:bg-white dark:bg-gray-800">
+            <div className="h-full px-3 py-2 overflow-y-auto border-2 border-gray-300 md:h-screen md:border-none rounded-xl bg-gray-50 lg:bg-white dark:bg-gray-800">
                 <h2 className="text-2xl">Productos</h2>
                 <ul className="pt-2 mt-2 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                     {/* <li>
@@ -42,7 +42,7 @@ function FilterShop() {
                         </div>
                     </li>
                 </ul>
-                <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
+                {/* <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                     <li className="flex justify-between pb-2 border-b border-gray-200">
                         <p className="ml-3 md:text-lg text-nowrap">Envio Fast⚡</p>
                         <label className="inline-flex items-center cursor-pointer">
@@ -64,6 +64,9 @@ function FilterShop() {
                         <div className="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </label>
                     </li>
+                </ul> */}
+                <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
+                    <span className="ms-3 md:text-lg">Licencia</span>
                 </ul>
                 <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                     <h3 className="mb-1 ml-3 md:text-lg">Precio</h3>

@@ -12,7 +12,7 @@ const ItemDetail = (product) => {
     const { addCart, checkProductInCart, removeItemCart } = useContext(CartContext);
     const productInCart = checkProductInCart(product);
 
-    console.log(product)
+    console.log('en item detail: ', product)
     let url = product.thumbnail_id ? `https://http2.mlstatic.com/D_NQ_NP_${product.thumbnail_id}-O.webp` : null;
     //console.log('img url: ', url);
 
@@ -21,7 +21,7 @@ const ItemDetail = (product) => {
     return (
         <div className='container p-4 mx-auto space-y-4 md:p-6'>
             <section className='flex flex-col mx-auto my-5 md:items-center md:flex-row px-14 md:justify-center md:gap-4'>
-                <picture><img src={url || product.img} className='md:w-[350px] flex mx-auto py-2' alt={`${product.description}${product.name}`} /></picture>
+                <picture><img src={url || product.image} className='md:w-[350px] flex mx-auto py-2' alt={`${product.description}${product.name}`} /></picture>
                 <article className='flex flex-col items-center justify-start py-3 mx-2 md:w-1/2'>
                     <div>
                         <div>

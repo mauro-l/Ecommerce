@@ -10,7 +10,6 @@ const ItemDetailContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
   //const { typeId, productId } = useParams();
   const params = useParams();
-  console.log('parametros', params)
 
   /* console.log( 'TIPOOO:', typeId, productId);
   console.log('typeId; ', typeof typeId, typeId);

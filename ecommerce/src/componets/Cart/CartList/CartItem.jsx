@@ -10,6 +10,8 @@ import { CartContext } from '../../../Context/CartContext';
 
 export default function CartItem({product}) {
 
+    console.log('carrito contexto: ', product)
+
     const {removeItemCart} = useContext(CartContext);
 
     return (

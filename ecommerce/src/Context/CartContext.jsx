@@ -20,7 +20,7 @@ export function CartProvider ({ children }){
 
         const updateCart = [...cart];
         updateCart[productIndex].quantity -= 1;
-        setCart(updateCart)
+        setCart(updateCart);
         }
     }
 

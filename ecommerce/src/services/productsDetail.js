@@ -10,15 +10,14 @@ export const getApiDetails = async (params) =>{
 
     console.log('dentro de productsDetails: ', params.typeId, params.productId);
     console.log('productsDetails typeId; ', typeof typeId, params.typeId);
-    console.log('productsDetails productID; ', typeof productId, params.productId);
+    console.log('productsDetails productID; ', typeof params.productId, params.productId);
 
     if(params.typeId === 'f'){
-        console.log('dentro del if de funkos: ', params.typeId)
         const docRef = doc(db, 'funkos', params.productId)
         try{
             const res = await getDoc(docRef)
-            console.log(res.data())
-            product.push({ ...res.data(), id: res.id });
+            /* product.push({ ...res.data(), id: res.id }); */
+            return({ ...res.data(), id: res.id });
         }
         catch(err){
             console.log('error al cargar la categoria del producto', err);
