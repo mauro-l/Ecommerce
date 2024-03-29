@@ -1,11 +1,22 @@
 
 import Libro from "./Libro";
 import useFetchData from "../../../hooks/useFetchData";
+import { useEffect, useMemo } from "react";
 
 function Libros() {
 
-    const { products, ready } = useFetchData('books', 4);
+    const librosParams = useMemo(()=> ({
+        category: 'libros',
+        limits: 4
+    }), [])
+
+    const { products, getProducts, ready } = useFetchData();
     console.log('SE RENDERISA HOME LIBROS')
+
+    useEffect(() => {
+        getProducts(librosParams);
+    }, [getProducts, librosParams]);
+
     const newBooks = [...products];
     const simpleBook = newBooks.shift();
 

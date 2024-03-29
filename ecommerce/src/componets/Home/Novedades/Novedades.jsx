@@ -9,11 +9,22 @@ import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
 import MiniCard from './MiniCard';
 import useFetchData from '../../../hooks/useFetchData';
+import { useEffect, useMemo } from 'react';
 
 function Novedades() {
 
+    const novedadesParams = useMemo(()=> ({
+        category: 'novedades',
+        limits: 15
+    }), [])
+    
     console.log('SE RENDERIZA NOVEDADES')
-    const { products, ready } = useFetchData('comics', 15)
+    const { products, getProducts, ready } = useFetchData()
+
+    useEffect(() => {
+        getProducts(novedadesParams);
+    }, [getProducts, novedadesParams]);
+
     console.log('---- luego de fetch ----')
     const newCards = [...products]
     

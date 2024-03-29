@@ -18,19 +18,10 @@ function FilterShop() {
             <div className="h-full px-3 py-2 overflow-y-auto border-2 border-gray-300 md:h-screen md:border-none rounded-xl bg-gray-50 lg:bg-white dark:bg-gray-800">
                 <h2 className="text-2xl">Productos</h2>
                 <ul className="pt-2 mt-2 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
-                    {/* <li>
-                        <div className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                                <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
-                                <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
-                            </svg>
-                            <span className="text-lg ms-3">Filtros</span>
-                        </div>
-                    </li> */}
                     <li>
                         <span className="ms-3 md:text-lg">Categoria</span>
                         <div className="w-40 my-1 ml-5 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            <Link to={'/shop/category/comics'} type="button" className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border border-gray-200 rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                            <Link to={'/shop/category/comicsymangas'} type="button" className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border border-gray-200 rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
                                 Comics
                             </Link>
                             <Link to={'/shop/category/libros'} type="button" className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-gray-200 border-x hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
@@ -67,6 +58,17 @@ function FilterShop() {
                 </ul> */}
                 <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                     <span className="ms-3 md:text-lg">Licencia</span>
+                    <div className="w-40 my-1 ml-5 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <Link to={'/shop/category/comics'} type="button" className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border border-gray-200 rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                                Comics
+                            </Link>
+                            <Link to={'/shop/category/libros'} type="button" className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-gray-200 border-x hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                                Libros
+                            </Link>
+                            <Link to={'/shop/category/funkos'} type="button" className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border border-gray-200 rounded-b-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                                Funkos
+                            </Link>
+                        </div>
                 </ul>
                 <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                     <h3 className="mb-1 ml-3 md:text-lg">Precio</h3>

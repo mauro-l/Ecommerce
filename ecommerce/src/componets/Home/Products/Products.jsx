@@ -1,10 +1,22 @@
 
 import useFetchData from '/src/hooks/useFetchData';
 import Card from '../../Cards/Card'
+import { useEffect, useMemo } from 'react';
 
 function Products() {
 
-    const { products } = useFetchData('comics', 8);
+    const productsParams = useMemo(()=> ({
+        category: 'comicsymangas',
+        limits: 8
+    }), [])
+
+    const { products, getProducts } = useFetchData();
+
+
+    useEffect(() => {
+        getProducts(productsParams);
+    }, [getProducts, productsParams]);
+
     console.log('SE RENDERIZA PRODUCTS')
 
     return (

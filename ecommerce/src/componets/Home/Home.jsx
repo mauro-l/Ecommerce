@@ -18,7 +18,7 @@ const Home = () => {
         <article className='flex flex-col items-center gap-3 p-4'>
             <h3 className='text-xl'>Tenemos todo para completar tu coleccion</h3>
             <picture className='flex flex-col gap-4 md:flex-row'>
-                <Link to={'/shop/category/comics'} className='relative'>
+                <Link to={'/shop/category/comicsymangas'} className='relative'>
                     <img src={mangas} className='w-64 h-64 p-2 border-2 border-gray-300' alt="img" />
                     <h2 className='absolute p-1 mx-2 text-xl text-black -bottom-0'>Comics</h2>
                 </Link>

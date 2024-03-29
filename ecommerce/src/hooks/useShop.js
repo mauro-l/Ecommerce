@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { getApiProducts } from "../services/products";
-import { transformProductData } from "../helper/transformProductData";
 
-export function useShop (categoryId, sort){
+export function useShop (category, sort){
     
     
     const [products, setProducts] = useState([]);
@@ -12,9 +11,8 @@ export function useShop (categoryId, sort){
       setLoading(true);
       const fetchData = async () => {
         try{
-          const product = await getApiProducts(categoryId);
-          const productsFormated = transformProductData(product);
-          setProducts(productsFormated.product);
+          const product = await getApiProducts({ category });
+          setProducts(product);
 
         } catch (err) {
           console.error('Hubo problemas al traer los productos; ', err)
@@ -26,7 +24,7 @@ export function useShop (categoryId, sort){
       
       fetchData();
 
-    }, [categoryId]);
+    }, [category]);
 
     //filtro por nombre asc o desc
     const sortedProducts = useMemo (()=>{

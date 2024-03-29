@@ -1,55 +1,78 @@
 
-/* api sector2810 mangas
-fetch(`https://api.mercadolibre.com/sites/MLA/search?seller_id=57113380`) */
 
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config";
-import endpoints from "./api/meli.api";
+import { categorias, subcategorias, misc } from "./api/meli.api";
+import { transformProductData } from "../helper/transformProductData";
 
-/* api yenny ateneo libros
-fetch(`https://api.mercadolibre.com/sites/MLA/search?seller_id=186616505`) */
-
-//let apiUrl = 'https://api.mercadolibre.com/sites/MLA/search?seller_id=57113380';
-
-export const getApiProducts = async (category) => {
+export const getApiProducts = async ({ category, subcategory, limits }) => {
     
     let products = [];
     
+    console.log('service; ', category, 'limites: ', limits)
     
     if (category === 'funkos' || !category){
+        
         try{
+            const funkosProducts = [];
             const productRef = collection(db, "funkos");
             const querySnapshot = await getDocs(productRef);
             querySnapshot.forEach((doc) => {
-                products.push({ ...doc.data(), id: doc.id });
+                funkosProducts.push({ ...doc.data(), id: doc.id });
             });
+            products = transformProductData(funkosProducts).product
 
         } catch (error){
             console.log('error al traer los funkos: ', error)
         }
     }else{
 
-        let url;        
+        let url='https://api.mercadolibre.com/sites/MLA/search?seller_id=';
 
-        if (category === 'libros'){
-            url = endpoints.books;        
-        } 
-
-        if (category === 'comics'){
-            url = endpoints.comics;
+        if(category === 'comicsymangas'){
+            url += categorias.comicsymangas;
+            if(subcategory === 'comics'){
+                url += subcategorias.comics
+            }else if(subcategory === 'mangas'){
+                url += subcategorias.mangas
+            }else{
+                url
+            }
         }
+
+        if(category === 'libros'){
+            url += categorias.libros;
+            if(subcategory === 'novelas'){
+                url += subcategorias.novelas
+            }else if(subcategory === 'books'){
+                url += subcategorias.books
+            }else{
+                url
+            }
+        }
+
+        if(category === 'all'){
+            url += misc.all
+        }else if(category === 'novedades'){
+            url += misc.novedades
+        }else{
+            console.error('categoria no encontrada.')
+        }
+
+        if(limits && limits !== null){
+            url += `&limit=${limits}`;
+        }
+
+        console.log('URL::', url)
 
         try{
             const response = await fetch(url);
-            const data = await response.json();
-            products = data.results;
+            const json = await response.json();
+            products = transformProductData(json.results).product;
         } catch (error) {
             console.log('hubo un problema al traer los libritos diria mi tia: ', error)
         }
     }
-
-    
-    
 
     return products;
 }

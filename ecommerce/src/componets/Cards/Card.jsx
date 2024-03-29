@@ -53,8 +53,8 @@ export default function Card(product) {
                     </div>
                     <div className='absolute left-0 z-10 lg:opacity-0 bg-white lg:bg-tgray lg:border-b-2 lg:border-x-2 md:border-gray-200 group-hover:opacity-100 transition-opacity duration-300 px-4 pb-4 w-60 -m-[2px]'>
                         <div className='px-4 mt-2'>
-                            <button type='button' onClick={()=>{
-                                productInCart ? removeItemCart(product) : addCart(product) }} 
+                            <button type='button' 
+                                onClick={()=>{productInCart ? removeItemCart(product) : addCart(product) }} 
                                 className={`flex items-center content-center justify-center w-full p-3 font-medium text-center text-white ${ productInCart ? 'bg-ered' : 'bg-black'}`}
                                 >
                                 <img src={addCartSvg} className='me-2' alt="cart-plus svg" />

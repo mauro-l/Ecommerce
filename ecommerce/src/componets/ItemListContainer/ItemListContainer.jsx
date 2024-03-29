@@ -16,7 +16,8 @@ const ItemListContainer = () => {
     const [sort, setSort] = useState('default')
     const { categoryId } = useParams();
 
-    const { loading, products } = useShop(categoryId, sort)
+    let category = categoryId || '';
+    const { loading, products } = useShop(category, sort)
 
     const handleSortChange = (e) =>{
       console.log('antes de; ', sort)
