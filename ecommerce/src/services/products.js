@@ -5,13 +5,13 @@ import { db } from "./config";
 import { categorias, subcategorias, misc } from "./api/meli.api";
 import { transformProductData } from "../helper/transformProductData";
 
-export const getApiProducts = async ({ category, subcategory, limits }) => {
+export const getApiProducts = async ({ category, subCategory, limits }) => {
     
     let products = [];
     
     console.log('service; ', category, 'limites: ', limits)
     
-    if (category === 'funkos' || !category){
+    if (category === 'funkos'){
         
         try{
             const funkosProducts = [];
@@ -29,11 +29,15 @@ export const getApiProducts = async ({ category, subcategory, limits }) => {
 
         let url='https://api.mercadolibre.com/sites/MLA/search?seller_id=';
 
+        if(!category){
+            url += misc.all
+        }
+
         if(category === 'comicsymangas'){
             url += categorias.comicsymangas;
-            if(subcategory === 'comics'){
+            if(subCategory === 'comics'){
                 url += subcategorias.comics
-            }else if(subcategory === 'mangas'){
+            }else if(subCategory === 'mangas'){
                 url += subcategorias.mangas
             }else{
                 url
@@ -42,9 +46,9 @@ export const getApiProducts = async ({ category, subcategory, limits }) => {
 
         if(category === 'libros'){
             url += categorias.libros;
-            if(subcategory === 'novelas'){
+            if(subCategory === 'novelas'){
                 url += subcategorias.novelas
-            }else if(subcategory === 'books'){
+            }else if(subCategory === 'books'){
                 url += subcategorias.books
             }else{
                 url

@@ -1,11 +1,8 @@
 //import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import './filter.css'
+import { Link } from "react-router-dom";
 
 function FilterShop() {
     
-    const { categoryId, subCategory } = useParams();
-    console.log('categoria: ', categoryId, 'subcategoria; ', subCategory)
     const selectedLetter = "a";
 
     return (
@@ -13,7 +10,7 @@ function FilterShop() {
         <>
             <div className="h-full px-3 py-2 overflow-y-auto border-2 border-gray-300 md:h-screen md:border-none rounded-xl bg-gray-50 lg:bg-white dark:bg-gray-800">
                 <h2 className="text-2xl">Productos</h2>
-                {/* <ul className="pt-2 mt-2 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
+                <ul className="pt-2 mt-2 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                     <li>
                         <span className="ms-3 md:text-lg">Categoria</span>
                         <div className="w-40 my-1 ml-5 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -30,82 +27,43 @@ function FilterShop() {
                             </Link>
                         </div>
                     </li>
+                </ul>
+                {/* <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
+                    <li className="flex justify-between pb-2 border-b border-gray-200">
+                        <p className="ml-3 md:text-lg text-nowrap">Envio Fast⚡</p>
+                        <label className="inline-flex items-center cursor-pointer">
+                        <input type="checkbox" defaultValue="" className="sr-only peer" />
+                        <div className="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </li>
+                    <li className="flex justify-between pb-2 my-2 border-b border-gray-200">
+                        <p className="ml-3 md:text-lg text-nowrap">Envio Gratis</p>
+                        <label className="inline-flex items-center cursor-pointer">
+                        <input type="checkbox" defaultValue="" className="sr-only peer" />
+                        <div className="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </li>
+                    <li className="flex justify-between">
+                        <p className="ml-3 md:text-lg text-nowrap">Cuotas Sin Interes</p>
+                        <label className="inline-flex items-center cursor-pointer">
+                        <input type="checkbox" defaultValue="" className="sr-only peer" />
+                        <div className="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </li>
                 </ul> */}
-                
-                <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">                    
-                    <div>
-                        <h2>
-                            <Link to={'/shop'}
-                                className={`${!categoryId && !subCategory ? 'activeClass' : 'inactiveClass'} flex items-center justify-between w-full gap-3 p-3 font-medium border border-b-0 border-gray-200 rtl:text-right rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800`}
-                            >
-                                Todos
+                <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
+                    <span className="ms-3 md:text-lg">Licencia</span>
+                    <div className="w-40 my-1 ml-5 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <Link to={'/shop/category/comics'} type="button" className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border border-gray-200 rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                                Comics
                             </Link>
-                        </h2>
-                        <h3>
-                            <Link to={'/shop/category/comicsymangas'}  
-                                className={`${categoryId === 'comicsymangas' && subCategory === undefined ? 'activeClass' : 'inactiveClass'} flex items-center justify-between w-full gap-3 p-3 font-medium text-gray-500 border border-gray-200 rtl:text-right focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800`}
-                                >
-                                <span>Comics & Mangas</span>
+                            <Link to={'/shop/category/libros'} type="button" className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-gray-200 border-x hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                                Libros
                             </Link>
-                        </h3>
-                        <div className={`${categoryId === 'comicsymangas' ? '': 'hidden'}`} >
-                            <ul className="flex flex-col text-gray-500 border border-gray-200 border-y-0 me-3 dark:border-gray-700 dark:bg-gray-900">
-                                <Link to={'/shop/category/comicsymangas/comics'}
-                                    className={` ${subCategory === 'comics' ? 'activeClass' : 'inactiveClass'} px-4 py-2 border-gray-200`}
-                                    >
-                                    Comics
-                                </Link>
-                                <Link to={'/shop/category/comicsymangas/mangas'}
-                                className={` ${subCategory === 'mangas' ? 'activeClass' : 'inactiveClass'} flex gap-1 px-4 py-2 border-t border-gray-200`}
-                                >
-                                    Mangas
-                                </Link>
-                            </ul>
+                            <Link to={'/shop/category/funkos'} type="button" className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border border-gray-200 rounded-b-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                                Funkos
+                            </Link>
                         </div>
-                        <h3>
-                            <Link to={'/shop/category/libros'}
-                                className={`${categoryId === 'libros' && !subCategory ? 'activeClass' : 'inactiveClass'} flex items-center justify-between w-full gap-3 p-3 font-medium text-gray-500 border border-gray-200 rtl:text-right focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800`}
-                                >
-                                <span>Libros</span>
-                            </Link>
-                        </h3>
-                        <div className={`${categoryId === 'libros' ? '': 'hidden'}`}>
-                            <ul className="flex flex-col text-gray-500 border border-gray-200 border-y-0 me-3 dark:border-gray-700 dark:bg-gray-900">
-                                <Link to={'/shop/category/libros/novelas'}
-                                    className={` ${subCategory === 'novelas' ? 'activeClass' : 'inactiveClass'} px-4 py-2 border-gray-200`}
-                                    >
-                                    Novelas
-                                </Link>
-                                <Link to={'/shop/category/libros/books'}
-                                className={` ${subCategory === 'books' ? 'activeClass' : 'inactiveClass'} flex gap-1 px-4 py-2 border-t border-gray-200`}
-                                >
-                                    Lectura ligera
-                                </Link>
-                            </ul>
-                        </div>
-                        <h3>
-                            <Link to={'/shop/category/funkos'}
-                                className={`${categoryId === 'funkos' && !subCategory ? 'activeClass' : 'inactiveClass'} flex items-center justify-between w-full gap-3 p-3 font-medium text-gray-500 border border-gray-200 rtl:text-right focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800`}
-                                >
-                                <span>Funkos</span>
-                            </Link>
-                        </h3>
-                        <div className={`${categoryId === 'funkos' ? '': 'hidden'}`}>
-                            <ul className="flex flex-col text-gray-500 border border-t-0 border-gray-200 me-3 dark:border-gray-700 dark:bg-gray-900">
-                                funkos
-                                {/* <Link to={'/shop/category/comicsymangas/comics'}
-                                    className={` ${subCategory === 'comics' ? 'activeClass' : 'inactiveClass'} px-4 py-2 border-b border-gray-200`}
-                                    >
-                                    Comics
-                                </Link>
-                                <Link to={'/shop/category/comicsymangas/mangas'}
-                                className={` ${subCategory === 'mangas' ? 'activeClass' : 'inactiveClass'} flex gap-1 px-4 py-2 border-b-0 border-gray-200`}
-                                >
-                                    Mangas
-                                </Link> */}
-                            </ul>
-                        </div>
-                    </div>
                 </ul>
                 <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
                     <h3 className="mb-1 ml-3 md:text-lg">Precio</h3>

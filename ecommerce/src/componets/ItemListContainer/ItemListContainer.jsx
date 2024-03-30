@@ -14,10 +14,10 @@ const ItemListContainer = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [sort, setSort] = useState('default')
-    const { categoryId } = useParams();
+    const { categoryId, subCategory } = useParams();
 
     let category = categoryId || '';
-    const { loading, products } = useShop(category, sort)
+    const { loading, products } = useShop(category, subCategory, sort)
 
     const handleSortChange = (e) =>{
       console.log('antes de; ', sort)
