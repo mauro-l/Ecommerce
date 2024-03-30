@@ -33,9 +33,8 @@ const ItemListContainer = () => {
 
   return (
     <>
-        <Banner greeting={"Shop"} />
-        <h1 className="pt-8 pb-4 text-5xl font-bold text-center">{ categoryId ? categoryId : 'Funkos'}</h1>
-        <div className="flex items-center justify-between w-full">
+        <Banner greeting={"Shop"} categoryId={categoryId} subcategory={subCategory} />
+        <div className="flex items-center justify-between w-full mt-4">
           <div>
                 <button 
                   onClick={toggleSidebar} 
@@ -59,6 +58,8 @@ const ItemListContainer = () => {
               <option value="default">Más relevantes</option>
               <option value="asc">Nombre Ascendente</option>
               <option value="desc">Nombre Descendente</option>
+              <option value="mayor">Mayor Precio</option>
+              <option value="menor">Menor Precio</option>
             </select>
           </div>
         </div>

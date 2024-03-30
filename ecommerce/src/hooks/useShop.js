@@ -36,6 +36,14 @@ export function useShop (category, subCategory, sort){
       {
         return [...products].sort((a, b) => b.name.localeCompare(a.name))
       }
+      else if(sort === 'mayor')
+      {
+        return [...products].sort((a, b) => b.price - a.price);
+      }
+      else if(sort === 'menor')
+      {
+        return [...products].sort((a, b) => a.price - b.price);
+      }
       else
       {
         return products

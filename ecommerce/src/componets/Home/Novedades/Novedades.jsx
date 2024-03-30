@@ -18,7 +18,6 @@ function Novedades() {
         limits: 15
     }), [])
     
-    console.log('SE RENDERIZA NOVEDADES')
     const { products, getProducts, ready } = useFetchData()
 
     useEffect(() => {

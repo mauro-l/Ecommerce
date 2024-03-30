@@ -13,7 +13,7 @@ export function transformProductData(products){
             category: prod.category || null,
             name: prod.name || prod.title,
             url: itemNameUrl,
-            price: prod.price,
+            price: prod.price.toLocaleString(),
             stock: prod.stock || prod.order_backend,
         })}
     )
