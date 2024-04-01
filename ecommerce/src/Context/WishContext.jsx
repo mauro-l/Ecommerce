@@ -15,7 +15,8 @@ export function WishProvider({ children }){
         const productIndex = fav.findIndex(item => item.id === productAdd.id);
 
         if(productIndex === -1){
-            setFav(prevState =>[...prevState, productAdd])
+            setFav(prevState =>[...prevState, productAdd]);
+            ToastyText('Agregado a favoritos 💞', 'success')
         }else{            
             ToastyText ('El producto ya se encuentra en favoritos 🤠!');
         }

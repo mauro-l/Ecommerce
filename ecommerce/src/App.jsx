@@ -9,14 +9,11 @@ import ItemListContainer from "./componets/ItemListContainer/ItemListContainer"
 import ItemDetailContainer from './componets/ItemDetailContainer/ItemDetailContainer';
 import Checkout from './componets/Cart/Checkout/Checkout';
 import { CartProvider } from './Context/CartContext';
-//import { useState } from 'react';
 import { FooterLog } from './utilities/FooterLog';
 import CartListContainer from './componets/Cart/CartListContainer';
 import ErrorWeb from './utilities/ErrorWeb';
 import { WishProvider } from './Context/WishContext';
 import { SuggestProvider } from './Context/SuggestContext';
-//import ToastyText from './utilities/ToastyText';
-
 
 function App() {
 
@@ -31,8 +28,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/shop' element={<ItemListContainer />} />
               <Route path='/shop/category/:categoryId/:subCategory?' element={<ItemListContainer />} />
-              <Route path='/:nameId/:typeId/:productId' element={<ItemDetailContainer />} />
-              <Route path='/:nameId/:typeId/*' element={<ErrorWeb />} />
+              <Route path='/:subCategory/:typeId/:productId' element={<ItemDetailContainer />} />
               <Route path='/fav' element={<WishList />} />
               <Route path='/*' element={<ErrorWeb />} />
               <Route path='/cart' element={<CartListContainer />} />

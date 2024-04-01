@@ -11,12 +11,20 @@ import './funko.css';
 
 //hooks
 import useFunkos from '../../../hooks/useFunkos';
+import { useContext } from 'react';
+import { SuggestContext } from '../../../Context/SuggestContext';
 
 function Funko() {
+
     const { funkoCard, swipperReady } = useFunkos();
-    console.log('SE RENDERISA CARRUSEL FUNKOS')
+    const { addFunkos } = useContext(SuggestContext);
+
     let cardList = [...funkoCard];
     let newFunkoCards = cardList;
+    
+    if(swipperReady){
+        addFunkos(funkoCard)
+    }
 
     return (
         <section className='flex flex-col mt-8 background md:flex-row'>

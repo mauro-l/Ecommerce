@@ -1,17 +1,20 @@
 
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import addCartSvg from '../icons/shopping-cart-plus.svg'
 import { useContext } from 'react';
 import { CartContext } from '../../Context/CartContext';
 import { WishContext } from '../../Context/WishContext';
-    
+
 export default function Card(product) {
     
     const { addCart, checkProductInCart, removeItemCart } = useContext(CartContext);
     const { addFav, checkProductInFav, removeItemFav } = useContext(WishContext);
+    
+    const { categoryId } = useParams();
 
+    const productInFav = checkProductInFav(product)
+    
     const handleFav = (product) =>{
-        const productInFav = checkProductInFav(product)
         if(productInFav){
             removeItemFav(product);
         }else{
@@ -24,14 +27,14 @@ export default function Card(product) {
     return (
         <div className="flex justify-center gap-3 mt-4">
             <div className="relative max-w-xs w-60 bg-white border border-transparent md:hover:bg-[#F2F4F7] md:hover:border-x-2 md:hover:border-t-2 md:hover:border-gray-200 transition duration-300 dark:bg-gray-800 dark:border-gray-700 px-1 py-4 space-y-4 group">
-                <Link to={`/${product.url}/${product.licence ? 'f' : 'p'}/${product.id}`}>
+                <Link to={`/${categoryId ? categoryId : 'libros'}/${product.licence ? 'f' : 'p'}/${product.id}`}>
                     <img className='object-fill mx-auto h-60' src={product.image} alt={`${product.url}${product.id}`} />
                 </Link>
-                <button 
+                <button
                     onClick={()=> handleFav(product)}
                     className='absolute z-20 p-1 border rounded-full right-7 bottom-4 bg-white/40'
                     >
-                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="black"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill={productInFav ? "red" : "white"}  stroke={productInFav ? "red" : "black"}  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  
                         className="icon icon-tabler icons-tabler-outline icon-tabler-heart"
                         >
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
@@ -55,10 +58,7 @@ export default function Card(product) {
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     )
 }
-
-//export default Card

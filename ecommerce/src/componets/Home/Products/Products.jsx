@@ -20,8 +20,6 @@ function Products() {
 
     addCyM(products)
 
-    console.log('SE RENDERIZA PRODUCTS')
-
     return (
         <div className="container flex flex-col flex-wrap justify-center p-8 mx-auto">
             <article className="flex items-end justify-between my-2">

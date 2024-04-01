@@ -1,22 +1,50 @@
 
-//import ItemCount from '../../ItemCount/ItemCount'
+//import assets
 import example from '../../../assets/example.jpg'
 import addCartSvg from '../../icons/shopping-cart-plus.svg'
 import removeCartSvg from '../../icons/shopping-cart-remove.svg'
-import StartRating from '../../Starts/StartRating'
 import mini from './pagosImg'
-import { useContext } from 'react'
+
+//import components y context
+import StartRating from '../../Starts/StartRating'
 import { CartContext } from '../../../Context/CartContext'
 import { WishContext } from '../../../Context/WishContext'
 import { SuggestContext } from '../../../Context/SuggestContext'
+
+//import React functions
+import { useContext, useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+
 
 const ItemDetail = ({ product }) => {
     
     const { addCart, checkProductInCart, removeItemCart } = useContext(CartContext);
     const { addFav, removeItemFav, checkProductInFav } = useContext(WishContext)
-    const { relatedCyM } = useContext(SuggestContext);
+    const { relatedCyM, relatedLibros, relatedFunkos } = useContext(SuggestContext);
 
-    console.log('ITEM DETAAAILL; ', relatedCyM.current)
+    const { subCategory } = useParams();
+    const [recommended, setRecommended] = useState([])
+
+    let subcategory = subCategory;
+
+    if(!subCategory | subCategory === 'libros'){
+        subcategory = 'Libros';
+    }else if(subCategory === 'comicsymangas'){
+        subcategory = 'Comics y Mangas'
+    }
+    
+    useEffect(()=>{
+        let currentRecommendation = [];
+        if (subCategory === 'comicsymangas') {
+            currentRecommendation = relatedCyM.current || [];
+        } else if (subCategory === 'funkos') {
+            currentRecommendation = relatedFunkos.current || [];
+        } else {
+            currentRecommendation = relatedLibros.current || [];
+        }
+        setRecommended(currentRecommendation);
+        // eslint-disable-next-line
+    }, [subCategory])
 
     return (
         <div className='container p-4 mx-auto space-y-4 md:p-6'>
@@ -27,7 +55,7 @@ const ItemDetail = ({ product }) => {
                         <div>
                             <p className='text-[#797C7F]'>{product.category}s</p>
                             <h2 className='text-3xl md:max-w-md'>{product.name}</h2>
-                            <h3 className='my-1 text-gray-400 font-roboto'>{product.licence}</h3>
+                            <h3 className='my-1 text-sm text-gray-400 font-roboto'>{product.licence || subcategory}</h3>
                             <div className='flex items-center gap-2'>
                                 <p className='text-2xl me-3'>${product.price}</p>
                                 <StartRating/>
@@ -98,9 +126,39 @@ const ItemDetail = ({ product }) => {
             <section className='px-12'>
                 <p className='text-2xl'>Productos Relacionados</p>
                 <figure className='flex flex-col gap-3 text-xl md:flex-row'>
-                    <a href='#'><img src={example} className='py-3' alt="" /><h3>Titulo recomendado</h3><p className='text-lg text-gray-400'>US$30.00</p></a>
-                    <a href='#'><img src={example} className='py-3' alt="" /><h3>Titulo recomendado</h3><p className='text-lg text-gray-400'>US$30.00</p></a>
-                    <a href='#'><img src={example} className='py-3' alt="" /><h3>Titulo recomendado</h3><p className='text-lg text-gray-400'>US$30.00</p></a>
+                    {
+                        recommended.length > 0 ?
+                        <div className='flex flex-col items-center justify-around w-full md:mt-5 md:flex-row'>
+                            {recommended.map((reco)=>{
+                                return(
+                                    <Link to={`/${subCategory ? subCategory : 'libros'}/${reco.licence ? 'f' : 'p'}/${reco.id}`} key={reco.id}>
+                                        <img src={reco.image} className='py-3 mx-auto max-h-60 md:max-h-96' alt={reco.name} />
+                                        <h3 className='text-center md:text-start max-w-60'>{reco.name}</h3>
+                                        <p className='text-lg text-center text-gray-400 md:text-start'>${reco.price}</p>
+                                    </Link>
+                                )
+                            })}
+                        </div>
+                        :
+                        <>
+                            <div>
+                                <img src={example} className='py-3 mx-auto max-h-60 md:max-h-96' alt="example" />
+                                <h3 className='text-center md:text-start max-w-60'>Titulo recomendado</h3>
+                                <p className='text-lg text-center text-gray-400 md:text-start'>US$30.00</p>
+                            </div>
+                            <div>
+                                <img src={example} className='py-3 mx-auto max-h-60 md:max-h-96' alt="example" />
+                                <h3 className='text-center md:text-start max-w-60'>Titulo recomendado</h3>
+                                <p className='text-lg text-center text-gray-400 md:text-start'>US$30.00</p>
+                            </div>
+                            <div>
+                                <img src={example} className='py-3 mx-auto max-h-60 md:max-h-96' alt="example" />
+                                <h3 className='text-center md:text-start max-w-60'>Titulo recomendado</h3>
+                                <p className='text-lg text-center text-gray-400 md:text-start'>US$30.00</p>
+                            </div>
+                        </>
+                    }
+                    
                 </figure>
             </section>
         </div>

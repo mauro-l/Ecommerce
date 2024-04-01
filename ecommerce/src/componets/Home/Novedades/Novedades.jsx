@@ -24,7 +24,6 @@ function Novedades() {
         getProducts(novedadesParams);
     }, [getProducts, novedadesParams]);
 
-    console.log('---- luego de fetch ----')
     const newCards = [...products]
     
     return (
