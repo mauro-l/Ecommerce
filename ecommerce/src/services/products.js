@@ -1,5 +1,4 @@
 
-
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config";
 import { categorias, subcategorias, misc } from "./api/meli.api";

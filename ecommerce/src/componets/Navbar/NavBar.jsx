@@ -1,5 +1,4 @@
 import { useState } from 'react';
-//import CartWidget from './CartWidget/CartWidget';
 import logo from './logo.png'
 import { Link } from 'react-router-dom';
 
@@ -8,10 +7,8 @@ function NavBar() {
   const [mostrarMenu, setmostrarMenu] = useState(true);
   
   const handleMenu = () => {
-    console.log('dentro de la funcion')
     const menuHamburguesa = document.getElementById('navbar-search');
     if (mostrarMenu){
-      console.log('Condiciional: ', mostrarMenu)
       menuHamburguesa.classList.remove('hidden');
       setmostrarMenu(false);
     }else{

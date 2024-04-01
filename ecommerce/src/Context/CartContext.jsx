@@ -32,23 +32,23 @@ export function CartProvider ({ children }){
         //console.log('!!!cart index: ', typeof cart[productIndex].quantity ,'|', cart[productIndex].quantity, '||',product.stock , 'product stock: ', typeof product.stock)
         
         if(stockAvailable == 0){
-        //const alerta=(`no hay mas productos disponible. Stock: ${product.stock}`)
-        ToastyText ('La cantidad seleccionada supera el stock disponible.')
+            //const alerta=(`no hay mas productos disponible. Stock: ${product.stock}`)
+            ToastyText ('La cantidad seleccionada supera el stock disponible.')
         }
 
         if(productIndex >= 0 && cart[productIndex].quantity < product.stock){
-        const newCart = [...cart];
-        newCart[productIndex].quantity += 1
-        return setCart(newCart)
+            const newCart = [...cart];
+            newCart[productIndex].quantity += 1
+            return setCart(newCart)
         }
 
         if(productIndex === -1){
-        setCart(prevState =>([
-            ...prevState,{
-            ...product,
-            quantity: 1
-            }
-        ]));
+            setCart(prevState =>([
+                ...prevState,{
+                ...product,
+                quantity: 1
+                }
+            ]));
         }
     }
 

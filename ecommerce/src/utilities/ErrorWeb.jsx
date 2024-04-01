@@ -4,7 +4,7 @@ function ErrorWeb() {
 
     return (
 
-        <div className='flex flex-col flex-wrap items-center justify-center md:flex-row'>
+        <div className='flex flex-col flex-wrap items-center justify-center lg:mb-60 md:flex-row'>
             <img src={dino} className='max-h-md md:max-h-80' alt="404 image" />
             <h1 className='inline-flex items-center gap-2 text-2xl text-gray-600'>
                 <span className='font-medium'>error 404.</span>

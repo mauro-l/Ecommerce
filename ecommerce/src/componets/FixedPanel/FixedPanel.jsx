@@ -1,7 +1,7 @@
 
 import { useState } from 'react'
 import icons from './icons/icons'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import CartWidget from '../CartWidget/CartWidget';
 import FixedCartList from './FixedCart/FixedCartList';
 
@@ -9,6 +9,7 @@ function FixedPanel() {
 
   const [isOpened, setOpened] = useState(false);
   const [asideContent, setAsideContent] = useState('');
+  const contentName = asideContent === 'fav' ? 'Favoritos' : 'Carrito';
 
   const openAside = (content) =>{
     setAsideContent(content);
@@ -58,19 +59,21 @@ function FixedPanel() {
           aria-label="Sidebar"
           >
             <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-              <div className='flex justify-between gap-2 m-2'>
-                <Link to={`/${asideContent}`}><button onClick={closeAside} className='px-4 py-2 text-white bg-black'>Ir a {asideContent}</button></Link>
-                <button onClick={closeAside} className='px-2 py-1 text-white bg-black' >
-                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-x">
+              <div className='flex items-center justify-between gap-2 m-2'>
+                {/* <Link to={`/${asideContent}`}>
+                  <button onClick={closeAside} className='px-4 py-2 text-white bg-black'>Ir a {asideContent}</button>
+                </Link> */}
+                <button onClick={closeAside} className='text-black' >{/* boton de cerrar */}
+                  <svg  xmlns="http://www.w3.org/2000/svg"  width="30"  height="30"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-x">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" />
                   </svg>
                 </button> 
+                <h2 className='text-2xl text-center'>{contentName}</h2>
               </div>
-              <h2 className='text-2xl text-center'>{asideContent}</h2>
 
               <div>
                 {
-                  asideContent && (<FixedCartList />)
+                  asideContent && (<FixedCartList content={asideContent} name={contentName} cerrarModal={()=>closeAside()} asideContent={asideContent} />)
                 }
               </div>
               

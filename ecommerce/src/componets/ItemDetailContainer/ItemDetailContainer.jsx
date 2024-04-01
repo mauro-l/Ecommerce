@@ -1,5 +1,5 @@
+
 import { useEffect, useState } from "react"
-//import { getProductsbyId } from "../../asyncMock";
 import ItemDetail from "./ItemDetail/ItemDetail";
 import { useParams } from "react-router-dom";
 import { getApiDetails } from "../../services/productsDetail";
@@ -8,12 +8,7 @@ const ItemDetailContainer = () => {
 
   const [product, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  //const { typeId, productId } = useParams();
   const params = useParams();
-
-  /* console.log( 'TIPOOO:', typeId, productId);
-  console.log('typeId; ', typeof typeId, typeId);
-  console.log('productID; ', typeof productId, productId); */
 
   useEffect(()=>{
 
@@ -34,7 +29,7 @@ const ItemDetailContainer = () => {
   return (
     <div>
       {isLoading &&(
-        <ItemDetail {...product}/>
+        <ItemDetail product={product[0]}/>
       )}
     </div>
   )

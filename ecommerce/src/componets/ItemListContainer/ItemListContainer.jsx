@@ -12,6 +12,7 @@ import { useShop } from '../../hooks/useShop';
 
 const ItemListContainer = () => {
 
+    console.log('se renderiza el shop')
     const [isOpen, setIsOpen] = useState(false);
     const [sort, setSort] = useState('default')
     const { categoryId, subCategory } = useParams();

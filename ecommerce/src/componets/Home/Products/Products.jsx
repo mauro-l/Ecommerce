@@ -1,21 +1,24 @@
 
 import useFetchData from '/src/hooks/useFetchData';
 import Card from '../../Cards/Card'
-import { useEffect, useMemo } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
+import { SuggestContext } from '../../../Context/SuggestContext';
 
 function Products() {
 
+    const { products, getProducts } = useFetchData();
+    const { addCyM } = useContext(SuggestContext);
+
     const productsParams = useMemo(()=> ({
         category: 'comicsymangas',
-        limits: 8
+        limits: 12
     }), [])
-
-    const { products, getProducts } = useFetchData();
-
 
     useEffect(() => {
         getProducts(productsParams);
     }, [getProducts, productsParams]);
+
+    addCyM(products)
 
     console.log('SE RENDERIZA PRODUCTS')
 

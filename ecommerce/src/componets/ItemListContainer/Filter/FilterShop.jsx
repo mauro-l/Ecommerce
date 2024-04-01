@@ -2,6 +2,13 @@
 import { Link, useParams } from "react-router-dom";
 import './filter.css'
 
+/* export function FilterPrice(){
+
+    
+
+} */
+
+
 function FilterShop() {
     
     const { categoryId, subCategory } = useParams();
@@ -89,8 +96,13 @@ function FilterShop() {
                     <div className="px-3 pb-4">
                         <div className="relative w-full">
                             <label htmlFor="labels-range-input" className="sr-only">Labels range</label>
-                            <input id="labels-range-input" type="range" defaultValue="750" min="100" max="1500" className="w-full h-1 bg-gray-200 appearance-none cursor-pointer range-sm dark:bg-gray-700"/>
-                            <span className="absolute text-sm text-gray-500 dark:text-gray-400 start-0 -bottom-6">Min ($100)</span>
+                            <input 
+                                id="labels-range-input" 
+                                type="range" defaultValue="50000" 
+                                min="1000" max="50000" 
+                                className="w-full h-1 bg-gray-200 appearance-none cursor-pointer range-sm dark:bg-gray-700"
+                                />
+                            <span className="absolute text-sm text-gray-500 dark:text-gray-400 start-0 -bottom-6">Ver precios hasta: </span>
                             <span className="absolute text-sm text-gray-500 dark:text-gray-400 end-0 -bottom-6">Max ($1500)</span>
                         </div>
                     </div>
