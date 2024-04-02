@@ -57,7 +57,7 @@ const ItemDetail = ({ product }) => {
                             <h2 className='text-3xl md:max-w-md'>{product.name}</h2>
                             <h3 className='my-1 text-sm text-gray-400 font-roboto'>{product.licence || subcategory}</h3>
                             <div className='flex items-center gap-2'>
-                                <p className='text-2xl me-3'>${product.price}</p>
+                                <p className='text-2xl me-3'>${product.price.toLocaleString()}</p>
                                 <StartRating/>
                             </div>
                         </div>
@@ -134,7 +134,7 @@ const ItemDetail = ({ product }) => {
                                     <Link to={`/${subCategory ? subCategory : 'libros'}/${reco.licence ? 'f' : 'p'}/${reco.id}`} key={reco.id}>
                                         <img src={reco.image} className='py-3 mx-auto max-h-60 md:max-h-96' alt={reco.name} />
                                         <h3 className='text-center md:text-start max-w-60'>{reco.name}</h3>
-                                        <p className='text-lg text-center text-gray-400 md:text-start'>${reco.price}</p>
+                                        <p className='text-lg text-center text-gray-400 md:text-start'>${reco.price.toLocaleString()}</p>
                                     </Link>
                                 )
                             })}

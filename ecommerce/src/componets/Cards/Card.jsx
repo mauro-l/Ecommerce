@@ -43,7 +43,7 @@ export default function Card(product) {
                 <div className="px-4">
                     <h5 className="mb-2 text-2xl tracking-tight text-gray-900 truncate cursor-default dark:text-white">{product.name}</h5>
                     <div className="flex items-center justify-between min-h-4">
-                        <p className="text-2xl text-[#797C7F] dark:text-white text-center mr-4">${product.price}</p>
+                        <p className="text-2xl text-[#797C7F] dark:text-white text-center mr-4">${(product.price).toLocaleString()}</p>
                         {/* <StartRating /> */}
                     </div>
                     <div className='absolute left-0 z-10 lg:opacity-0 bg-white lg:bg-tgray lg:border-b-2 lg:border-x-2 md:border-gray-200 group-hover:opacity-100 transition-opacity duration-300 px-4 pb-4 w-60 -m-[2px]'>

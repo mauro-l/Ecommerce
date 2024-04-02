@@ -61,7 +61,7 @@ function Novedades() {
                 >
                 {newCards.map(itemCard =>(
                     <SwiperSlide key={itemCard.id}>
-                        <MiniCard img={itemCard.image} name={itemCard.name} price={itemCard.price} />
+                        <MiniCard img={itemCard.image} name={itemCard.name} price={itemCard.price.toLocaleString()} />
                     </SwiperSlide>
                 ))}
                 </Swiper>

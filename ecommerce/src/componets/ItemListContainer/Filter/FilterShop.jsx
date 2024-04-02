@@ -1,25 +1,54 @@
 
 import { Link, useParams } from "react-router-dom";
 import './filter.css'
-
-/* export function FilterPrice(){
-
-    
-
-} */
+import { useId } from "react";
+import { useContext } from "react";
+import { FilterContext } from "../../../Context/FilterContext";
 
 
 function FilterShop() {
     
+    const { filters, setFilters, removeFilters } = useContext(FilterContext)
     const { categoryId, subCategory } = useParams();
-    console.log('categoria: ', categoryId, 'subcategoria; ', subCategory)
-    const selectedLetter = "a";
+    const filterPriceId = useId()
+    
+    const handleChangePrice = (event) => {
+        const newMaxPrice = parseInt(event.target.value);
+
+        setFilters(prevState =>({
+            ...prevState, 
+            maxPrice: newMaxPrice
+        }))
+    }
+
+    const handleChangeLetter = (letter) => {
+
+        setFilters(prevState =>{
+            if(prevState.letters !== letter){
+                return{
+                    ...prevState, 
+                    letters: letter
+                };
+            }else{
+                return{
+                    ...prevState, 
+                    letters: ' '
+                }
+            }
+        })
+    }
 
     return (
         
         <>
             <div className="h-full px-3 py-2 overflow-y-auto border-2 border-gray-300 md:h-screen md:border-none rounded-xl bg-gray-50 lg:bg-white dark:bg-gray-800">
-                <h2 className="text-2xl">Productos</h2>
+                <div className="flex justify-between">
+                    <h2 className="text-2xl">Filtros</h2>
+                    <button className="flex items-center text-sm text-gray-300 hover:text-gray-500" onClick={()=>removeFilters()}>
+                        Limpiar filtros
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="18"  height="18"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="mb-1 icon icon-tabler icons-tabler-outline icon-tabler-adjustments-off"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M6 6v2" /><path d="M6 12v8" /><path d="M10 16a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M12 4v4m0 4v2" /><path d="M12 18v2" /><path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M18 4v1" /><path d="M18 9v5m0 4v2" /><path d="M3 3l18 18" /></svg>
+                    </button>
+                </div>
                 <ul className="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">                    
                     <div>
                         <h2>
@@ -71,7 +100,7 @@ function FilterShop() {
                                     Novelas
                                 </Link>
                                 <Link to={'/shop/category/libros/books'}
-                                className={` ${subCategory === 'novelas' ? 'activeClass before:content-["📌"]' : 'inactiveClass'} flex gap-1 px-4 py-2 border border-b-0 border-gray-200`}
+                                className={` ${subCategory === 'books' ? 'activeClass before:content-["📌"]' : 'inactiveClass'} flex gap-1 px-4 py-2 border border-b-0 border-gray-200`}
                                 >
                                     Lectura ligera
                                 </Link>
@@ -95,15 +124,16 @@ function FilterShop() {
                     <h3 className="mb-1 ml-3 md:text-lg">Precio</h3>
                     <div className="px-3 pb-4">
                         <div className="relative w-full">
-                            <label htmlFor="labels-range-input" className="sr-only">Labels range</label>
+                            <label htmlFor={filterPriceId} className="sr-only">Labels range</label>
                             <input 
-                                id="labels-range-input" 
-                                type="range" defaultValue="50000" 
-                                min="1000" max="50000" 
+                                id={filterPriceId} 
+                                type="range" value={filters.maxPrice} 
+                                min={1000} max={40000} 
+                                onChange={handleChangePrice}
                                 className="w-full h-1 bg-gray-200 appearance-none cursor-pointer range-sm dark:bg-gray-700"
                                 />
                             <span className="absolute text-sm text-gray-500 dark:text-gray-400 start-0 -bottom-6">Ver precios hasta: </span>
-                            <span className="absolute text-sm text-gray-500 dark:text-gray-400 end-0 -bottom-6">Max ($1500)</span>
+                            <span className="absolute text-sm text-gray-500 dark:text-gray-400 end-0 -bottom-6">Max ${filters.maxPrice.toLocaleString()}</span>
                         </div>
                     </div>
                 </ul>
@@ -115,8 +145,8 @@ function FilterShop() {
                             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map(letter => (
                                 <button 
                                     key={letter} 
-                                    className={selectedLetter === letter ? 'active' : ''}
-                                    /* onClick={() => handleFilterChange(letter)} */
+                                    className={filters.letters === letter && filters.letters !== ' ' ? 'border rounded-xl shadow-md' : ''}
+                                    onClick={() => handleChangeLetter(letter)}
                                 >
                                     {letter}
                                 </button>

@@ -14,6 +14,7 @@ import CartListContainer from './componets/Cart/CartListContainer';
 import ErrorWeb from './utilities/ErrorWeb';
 import { WishProvider } from './Context/WishContext';
 import { SuggestProvider } from './Context/SuggestContext';
+import { FilterProvider } from './Context/FilterContext';
 
 function App() {
 
@@ -21,24 +22,26 @@ function App() {
 
     <CartProvider>
       <WishProvider>
-        <BrowserRouter>
-            <NavBar/>
-            <SuggestProvider>
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/shop' element={<ItemListContainer />} />
-              <Route path='/shop/category/:categoryId/:subCategory?' element={<ItemListContainer />} />
-              <Route path='/:subCategory/:typeId/:productId' element={<ItemDetailContainer />} />
-              <Route path='/fav' element={<WishList />} />
-              <Route path='/*' element={<ErrorWeb />} />
-              <Route path='/cart' element={<CartListContainer />} />
-              <Route path='/cart/checkout' element={<Checkout />} />
-            </Routes>
-            </SuggestProvider>
-            <FixedPanel/>
-            <Footer />
-            <FooterLog />
-        </BrowserRouter>
+        <FilterProvider>
+          <BrowserRouter>
+              <NavBar/>
+              <SuggestProvider>
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/shop' element={<ItemListContainer />} />
+                <Route path='/shop/category/:categoryId/:subCategory?' element={<ItemListContainer />} />
+                <Route path='/:subCategory/:typeId/:productId' element={<ItemDetailContainer />} />
+                <Route path='/fav' element={<WishList />} />
+                <Route path='/*' element={<ErrorWeb />} />
+                <Route path='/cart' element={<CartListContainer />} />
+                <Route path='/cart/checkout' element={<Checkout />} />
+              </Routes>
+              </SuggestProvider>
+              <FixedPanel/>
+              <Footer />
+              <FooterLog />
+          </BrowserRouter>
+        </FilterProvider>
       </WishProvider>
     </CartProvider>
   )

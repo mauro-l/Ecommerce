@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { getApiProducts } from "../services/products";
+import { getApiProducts } from "../services/service";
 
 export function useShop (category, subCategory, sort){
     
     
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [ready, setReady] = useState(false);
         
     useEffect(()=>{
       setLoading(true);
@@ -19,6 +20,7 @@ export function useShop (category, subCategory, sort){
         }
         finally{
           setLoading(false);
+          setReady(true);
         }
       }
       
@@ -50,6 +52,6 @@ export function useShop (category, subCategory, sort){
       }
     }, [sort, products])
 
-    return { loading, products: sortedProducts }
+    return { loading, ready, products: sortedProducts }
 
 }

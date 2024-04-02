@@ -5,12 +5,15 @@ import footer from './bkg_footer.png'
 function Footer() {
     return (
         <>
-            <div className='bg-white w-full md:h-[240px] h-28 relative mt-4'>
-                <img src={footer} className='absolute -bottom-1' alt="footerpic" />
+            <div className='bg-white w-full md:h-[350px] h-28 relative mt-4' style={{ maskImage: 'linear-gradient( black 90%, rgb(67,57,59) )' }}>
+                <img src={footer} 
+                    className='absolute -bottom-1'
+                    alt="footerpic" 
+                />
             </div>
-            <footer className="bg-[#43393b] dark:bg-gray-900 bottom-0 w-full">
-                <div className="bg-[#43393b] relative mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-                    <div className='absolute -top-1 left-0 w-full bg-[#43393b] h-3'></div>
+            <footer className="bottom-0 w-full bg-bfooter dark:bg-gray-900">
+                <div className="relative w-full max-w-screen-xl p-4 py-6 mx-auto bg-bfooter lg:py-8">
+                    <div className='absolute left-0 w-full h-3 -top-1 bg-bfooter'></div>
                     <div className="md:flex md:justify-between">
                     <div className="my-6 md:mb-0">
                         <a href="#" className="flex items-center">
@@ -19,8 +22,8 @@ function Footer() {
                     </div>
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
-                            <h2 className="mb-6 text-lg font-semibold uppercase text-white">Contacts</h2>
-                            <ul className="text-gray-300 dark:text-gray-400 font-medium">
+                            <h2 className="mb-6 text-lg font-semibold text-white uppercase">Contacts</h2>
+                            <ul className="font-medium text-gray-300 dark:text-gray-400">
                                 <li className="mb-4">
                                     <p className="hover:underline">+1 840 841 25 69</p>
                                 </li>
@@ -30,8 +33,8 @@ function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <h2 className="mb-6 text-lg font-semibold uppercase text-white">Follow us</h2>
-                            <ul className="text-gray-300 dark:text-gray-400 font-medium">
+                            <h2 className="mb-6 text-lg font-semibold text-white uppercase">Follow us</h2>
+                            <ul className="font-medium text-gray-300 dark:text-gray-400">
                                 <li className="mb-4">
                                     <a href="https://github.com/" className="hover:underline ">Github</a>
                                 </li>
@@ -41,8 +44,8 @@ function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <h2 className="mb-6 text-lg font-semibold uppercase text-white">Legal</h2>
-                            <ul className="text-gray-300 dark:text-gray-400 font-medium">
+                            <h2 className="mb-6 text-lg font-semibold text-white uppercase">Legal</h2>
+                            <ul className="font-medium text-gray-300 dark:text-gray-400">
                                 <li className="mb-4">
                                     <a href="#" className="hover:underline">Privacy Policy</a>
                                 </li>

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { getApiProducts } from '../services/products';
+import { getApiProducts } from '../services/service';
 
 
 export default function useFetchData() {

@@ -118,7 +118,7 @@ export default function CartListContainer() {
                                     Subtotal
                                 </th>
                                 <td className="px-6 py-4 text-black">
-                                    ${basePrice}
+                                    ${basePrice.toLocaleString()}
                                 </td>
                             </tr>
                             <tr className="border-b border-gray-200 dark:border-gray-700">
@@ -138,7 +138,7 @@ export default function CartListContainer() {
                                     Total
                                 </th>
                                 <td className="px-6 py-4 text-black">
-                                    ${finalCost}
+                                    ${finalCost.toLocaleString()}
                                 </td>
                             </tr>
                         </tbody>

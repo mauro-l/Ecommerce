@@ -13,6 +13,7 @@ export default {
       'esky': '#6FC9CD',
       'ered': '#ac2026',
       'tgray': '#F2F4F7',
+      'bfooter': '#43393b',
     },
     fontFamily: {
       'sans': ['"Bebas Neue", sans-serif'],
