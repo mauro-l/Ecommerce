@@ -7,8 +7,8 @@ import FixedCart from "./FixedCart"
 
 //context
 import { useContext } from "react"
-import { CartContext } from "../../../Context/CartContext"
-import { WishContext } from '../../../Context/WishContext';
+import { CartContext } from "/src/Context/CartContext"
+import { WishContext } from '/src/Context/WishContext';
 
 
 

@@ -6,6 +6,7 @@ export const CartContext = createContext();
 export function CartProvider ({ children }){
 
     const [cart, setCart] = useState([]);
+    const [shipment, setShipmet] = useState(0);
 
     const checkProductInCart = (product) =>{ 
         return cart.some(prod => prod.id === product.id); 
@@ -80,7 +81,9 @@ export function CartProvider ({ children }){
                 totalPrice,
                 removeItemCart, 
                 subtractQuantity, 
-                clearCart
+                clearCart, 
+                shipment, 
+                setShipmet
                 }
             }>
             {children}

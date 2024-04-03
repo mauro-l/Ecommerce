@@ -12,7 +12,7 @@ import { CartContext } from '../../Context/CartContext';
 
 export default function CartListContainer() {
 
-    const { clearCart, cart, totalPrice } = useContext(CartContext);
+    const { clearCart, cart, totalPrice, setShipmet } = useContext(CartContext);
 
     const [shippingMethod, setShippingMethod] = useState('retiro');
 
@@ -28,7 +28,7 @@ export default function CartListContainer() {
 
     const basePrice = totalPrice();
     const finalCost = basePrice + shippingCost[shippingMethod];
- 
+
   return (
     <>
         <Banner greeting={'Carrito'} />
@@ -144,7 +144,7 @@ export default function CartListContainer() {
                         </tbody>
                     </table>
                 </div>
-                <Link to={'/cart/checkout'}>
+                <Link to={'/cart/checkout'} onClick={()=>setShipmet(shippingCost[shippingMethod])}>
                     <button className='w-full py-2 my-3 text-white border border-white bg-esky'>Continuar con el pago</button>
                 </Link>
             </article>
