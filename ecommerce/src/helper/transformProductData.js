@@ -5,8 +5,6 @@ export function transformProductData(products){
     const mappedProducts = products.map(prod =>{
     let url = prod.thumbnail_id ? `https://http2.mlstatic.com/D_NQ_NP_${prod.thumbnail_id}-O.webp` : null;
     
-    const itemNameUrl = shortenName(prod.name, prod.title);
-    /* const randomNumber = Math.ceil(Math.random() * 18); */
     const stockMeli = prod.price >= 1000 ? Math.floor(prod.price / 1000) : null;
 
         return({
@@ -14,8 +12,7 @@ export function transformProductData(products){
             image: url || prod.image,
             category: prod.category || 'Libros, Comics y Manga',
             licence: prod.licence || null,
-            name: prod.name || prod.title,
-            url: itemNameUrl,
+            name: shortenName(prod.name || prod.title),
             price: prod.price,
             stock: prod.stock || stockMeli,
         })}

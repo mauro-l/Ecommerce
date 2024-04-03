@@ -16,7 +16,7 @@ export default function useFetchData() {
         try{
             setLoading(true);
             const newProducts = await getApiProducts({ category, limits });
-            setProducts(newProducts)
+            setProducts(newProducts.products)
 
         } catch (error){
             console.error('error al traer los productos: ', error)

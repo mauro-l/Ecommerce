@@ -1,25 +1,32 @@
 
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "./config";
 import { categorias, subcategorias, misc } from "./api/meli.api";
 import { transformProductData } from "../helper/transformProductData";
 
 export const getApiProducts = async ({ category, subCategory, limits }) => {
     
-    let products = [];
+    let products;
+    let header;
+    const licences = ['Star Wars', 'Harry Potter', 'Naruto', 'Pokemon', 'One Piece'];
     
-    console.log('service; ', category, 'limites: ', limits)
+    console.log('service; ', category, '| subcategory; ', subCategory, '| limites: ', limits)
     
     if (category === 'funkos'){
-        
+        if(!licences.includes(subCategory) && subCategory){
+            throw new Error(`La subcategoría "${subCategory}" no válida para funkos`);
+        }
         try{
             const funkosProducts = [];
             const productRef = collection(db, "funkos");
-            const querySnapshot = await getDocs(productRef);
+            const q = subCategory ? query(productRef, where('licence', '==', subCategory)) : productRef;
+            const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
                 funkosProducts.push({ ...doc.data(), id: doc.id });
             });
-            products = transformProductData(funkosProducts).product
+            return{
+                products : transformProductData(funkosProducts).product
+            }
 
         } catch (error){
             console.log('error al traer los funkos: ', error)
@@ -54,28 +61,30 @@ export const getApiProducts = async ({ category, subCategory, limits }) => {
             }
         }
 
-        if(category === 'all'){
+        if(category === 'all' || category === ''){
             url += misc.all
         }else if(category === 'novedades'){
             url += misc.novedades
-        }else{
-            console.error('categoria no encontrada.')
         }
 
         if(limits && limits !== null){
             url += `&limit=${limits}`;
         }
-
+        
         console.log('URL::', url)
 
         try{
             const response = await fetch(url);
             const json = await response.json();
-            products = transformProductData(json.results).product;
+            const { results, paging } = json
+            return{
+                products: transformProductData(results).product,
+                header: paging
+            }
         } catch (error) {
             console.log('hubo un problema al traer los libritos diria mi tia: ', error)
         }
     }
 
-    return products;
+    return { products, header };
 }

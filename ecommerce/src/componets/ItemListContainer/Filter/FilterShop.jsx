@@ -1,16 +1,26 @@
 
 import { Link, useParams } from "react-router-dom";
 import './filter.css'
-import { useId } from "react";
+import { useId, useState } from "react";
 import { useContext } from "react";
 import { FilterContext } from "../../../Context/FilterContext";
 
 
 function FilterShop() {
     
+    const licences = ['Star Wars', 'Harry Potter', 'Naruto', 'Pokemon', 'One Piece'];
     const { filters, setFilters, removeFilters } = useContext(FilterContext)
     const { categoryId, subCategory } = useParams();
     const filterPriceId = useId()
+    const [visibility, setVisibility] = useState({div1: false, div2: false, div3: false,});
+    
+      const handleToggleVisibility = (key) => {
+        setVisibility((prevVisibility) => ({
+          ...prevVisibility,
+          [key]: !prevVisibility[key],
+        }));
+      };
+
     
     const handleChangePrice = (event) => {
         const newMaxPrice = parseInt(event.target.value);
@@ -61,14 +71,20 @@ function FilterShop() {
                         <h3>
                             <Link to={'/shop/category/comicsymangas'}  
                                 className={`${categoryId === 'comicsymangas' ? '!text-black shadow' : 'inactiveClass'} flex items-center justify-between w-full gap-3 p-3 font-medium text-gray-500 border border-b-0 border-gray-200 rtl:text-right focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800`}
+                                onClick={()=>handleToggleVisibility('div1')}
                                 >
                                 <span>Comics & Mangas</span>
-                                <svg data-accordion-icon className="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <svg data-accordion-icon 
+                                    className="w-3 h-3 rotate-180 shrink-0" 
+                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" 
+                                    fill="none" viewBox="0 0 10 6"
+                                    
+                                    >
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5 5 1 1 5"/>
                                 </svg>
                             </Link>
                         </h3>
-                        <div className={`${categoryId === 'comicsymangas' ? '': 'hidden'} bg-gray-100`} >
+                        <div className={`${visibility.div1 && categoryId === 'comicsymangas' ? '': 'hidden'} bg-gray-100`} >
                             <div className="text-gray-500 border-gray-200 rounded-xl dark:border-gray-700 dark:bg-gray-900">
                                 <Link to={'/shop/category/comicsymangas/comics'}
                                     className={` ${subCategory === 'comics' ? 'activeClass before:content-["📌"]' : 'inactiveClass'} px-4 flex py-2 border border-b-0 border-gray-200`}
@@ -85,6 +101,7 @@ function FilterShop() {
                         <h3>
                             <Link to={'/shop/category/libros'}
                                 className={`${categoryId === 'libros' ? '!text-black shadow' : 'inactiveClass'} flex items-center justify-between w-full gap-3 p-3 font-medium text-gray-500 border border-b-0 border-gray-200 rtl:text-right focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800`}
+                                onClick={()=>handleToggleVisibility('div2')}
                                 >
                                 <span>Libros</span>
                                 <svg data-accordion-icon className="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -92,7 +109,7 @@ function FilterShop() {
                                 </svg>
                             </Link>
                         </h3>
-                        <div className={`${categoryId === 'libros' ? '': 'hidden'} bg-gray-100`}>
+                        <div className={`${visibility.div2 && categoryId === 'libros' ? '': 'hidden'} bg-gray-100`}>
                             <div className="text-gray-500 border-gray-200 rounded-xl dark:border-gray-700 dark:bg-gray-900">
                                 <Link to={'/shop/category/libros/novelas'}
                                     className={` ${subCategory === 'novelas' ? 'activeClass before:content-["📌"]' : 'inactiveClass'} px-4 flex py-2 border border-b-0 border-gray-200`}
@@ -108,15 +125,28 @@ function FilterShop() {
                         </div>
                         <h3>
                             <Link to={'/shop/category/funkos'}
-                                className={`${categoryId === 'funkos' && !subCategory ? 'activeClass' : 'inactiveClass'} flex items-center justify-between w-full gap-3 p-3 font-medium text-gray-500 border border-gray-200 rtl:text-right focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800`}
+                                className={`${categoryId === 'funkos' && !subCategory ? '!text-black shadow' : 'inactiveClass'} flex items-center justify-between w-full gap-3 p-3 font-medium text-gray-500 border border-gray-200 rtl:text-right focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800`}
+                                onClick={()=>handleToggleVisibility('div3')}
                                 >
                                 <span>Funkos</span>
+                                <svg data-accordion-icon className="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5 5 1 1 5"/>
+                                </svg>
                             </Link>
                         </h3>
-                        <div className={`${categoryId === 'funkos' ? '': 'hidden'}`}>
-                            <ul className="flex flex-col text-gray-500 border border-t-0 border-gray-200 me-3 dark:border-gray-700 dark:bg-gray-900">
-                                funkos
-                            </ul>
+                        <div className={`${visibility.div3 && categoryId === 'funkos' ? '': 'hidden'} bg-gray-100`}>
+                            <div className="text-gray-500 border-gray-200 rounded-xl dark:border-gray-700 dark:bg-gray-900">
+                                {
+                                    licences.map((funkos, index) =>(
+                                        <Link to={`/shop/category/funkos/${funkos}`}
+                                            key={index}
+                                            className={` ${subCategory === funkos ? 'activeClass before:content-["📌"]' : 'inactiveClass'} px-4 flex py-2 border ${funkos === 'One Piece'? 'rounded-b-xl' : 'border-b-0' } border-gray-200`}
+                                            >
+                                            {funkos}
+                                        </Link>
+                                    ))
+                                }
+                            </div>
                         </div>
                     </div>
                 </ul>

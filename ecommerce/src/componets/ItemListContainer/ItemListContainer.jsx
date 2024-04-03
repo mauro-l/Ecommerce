@@ -13,33 +13,39 @@ import { useFilters } from '../../hooks/useFilters';
 import { useState } from "react"
 import { useParams } from 'react-router-dom';
 
-
 const ItemListContainer = () => {
 
-    console.log('se renderiza el shop')
-    const [isOpen, setIsOpen] = useState(false);
-    const [sort, setSort] = useState('default')
-    const { filterProducts } = useFilters();
-    const { categoryId, subCategory } = useParams();
+  console.log('se renderiza el shop')
+  //aside function
+  const [isOpen, setIsOpen] = useState(false);
 
-    let category = categoryId || '';
-    const { ready, products } = useShop(category, subCategory, sort)
+  //filters 
+  const [sort, setSort] = useState('default')
+  const { filterProducts } = useFilters();
 
-    const handleSortChange = (e) =>{
-      setSort(e.target.value)
-    }
+  //fetch
+  const { categoryId, subCategory } = useParams();
 
-    const toggleSidebar = () => {
-      setIsOpen(!isOpen);
-    };
+  let category = categoryId || '';
+  const { ready, products } = useShop(category, subCategory, sort, 20)
 
-    let filteredProducts = products; 
+  let filteredProducts = products; 
 
-    if (ready) { 
-      filteredProducts = filterProducts(products); 
-    }
+  if (ready) { 
+    filteredProducts = filterProducts(products); 
+  }
 
-    
+
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+  
+  const handleSortChange = (e) =>{
+    setSort(e.target.value)
+  }
+
+  
   return (
     <>
         <Banner greeting={"Shop"} categoryId={categoryId} subcategory={subCategory} />
@@ -90,7 +96,6 @@ const ItemListContainer = () => {
               }
             </div>
           </div>
-
         </div>
     </>
 

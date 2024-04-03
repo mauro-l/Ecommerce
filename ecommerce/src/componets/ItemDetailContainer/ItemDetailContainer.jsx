@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import ItemDetail from "./ItemDetail/ItemDetail";
 import { useParams } from "react-router-dom";
 import { getApiDetails } from "../../services/productsDetail";
+import LoadingCard from "../Cards/LoadingCard";
 
 const ItemDetailContainer = () => {
 
@@ -28,9 +29,11 @@ const ItemDetailContainer = () => {
 
   return (
     <div>
-      {isLoading &&(
+      {!isLoading ?
+        <LoadingCard/>
+        :
         <ItemDetail product={product[0]}/>
-      )}
+      }
     </div>
   )
 }
