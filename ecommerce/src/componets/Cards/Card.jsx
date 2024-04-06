@@ -1,6 +1,11 @@
 
-import { Link, useParams } from 'react-router-dom'
+//import misc
 import addCartSvg from '../icons/shopping-cart-plus.svg'
+
+//import router
+import { Link, useParams } from 'react-router-dom'
+
+//import contexts
 import { useContext } from 'react';
 import { CartContext } from '../../Context/CartContext';
 import { WishContext } from '../../Context/WishContext';
@@ -28,7 +33,8 @@ export default function Card(product) {
         <div className="flex justify-center gap-3 mt-4">
             <div className="relative max-w-xs w-60 bg-white border border-transparent md:hover:bg-[#F2F4F7] md:hover:border-x-2 md:hover:border-t-2 md:hover:border-gray-200 transition duration-300 dark:bg-gray-800 dark:border-gray-700 px-1 py-4 space-y-4 group">
                 <Link to={`/${categoryId ? categoryId : 'libros'}/${product.licence ? 'f' : 'p'}/${product.id}`}>
-                    <img className='object-fill mx-auto h-60' src={product.image} alt={`${product.url}${product.id}`} />
+                    <img className='relative object-fill mx-auto h-60' src={product.image} alt={`${product.url}${product.id}`} />
+                    <div className={`absolute top-0 bg-white/10 opacity-50 ${product.stock? 'hidden':''}`}>Producto sin stock.</div>
                 </Link>
                 <button
                     onClick={()=> handleFav(product)}
@@ -51,6 +57,7 @@ export default function Card(product) {
                             <button type='button' 
                                 onClick={()=>{productInCart ? removeItemCart(product) : addCart(product) }} 
                                 className={`flex items-center content-center justify-center w-full p-3 font-medium text-center text-white ${ productInCart ? 'bg-ered' : 'bg-black'}`}
+                                disabled={product.stock === 0}
                                 >
                                 <img src={addCartSvg} className='me-2' alt="cart-plus svg" />
                                 {productInCart ? 'QUITAR DEL CARRITO' : 'AGREGAR AL CARRITO' }

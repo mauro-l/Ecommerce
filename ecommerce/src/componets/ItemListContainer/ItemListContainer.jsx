@@ -15,7 +15,6 @@ import { useParams } from 'react-router-dom';
 
 const ItemListContainer = () => {
 
-  console.log('se renderiza el shop')
   //aside function
   const [isOpen, setIsOpen] = useState(false);
 

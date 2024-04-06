@@ -1,10 +1,10 @@
 import { useContext, useState } from "react"
 import { CartContext } from "../Context/CartContext"
-import { WishContext } from "../Context/WishContext"
+//import { WishContext } from "../Context/WishContext"
 
  export function FooterLog() {
 
-    const { fav } = useContext(WishContext)
+    const { cart } = useContext(CartContext)
     const [isClick, setIsClick] = useState(true)
 
     function opened (){
@@ -18,7 +18,7 @@ import { WishContext } from "../Context/WishContext"
      </button>
         <div className={` fixed bottom-0 z-50 p-3 m-3 ms-10 text-sm w-1/3 text-white font-roboto left-3 bg-black/50 transition-transform ${isClick ? 'block' : 'hidden'}`}>
             {
-                JSON.stringify(fav, null, 2)
+                JSON.stringify(cart, null, 2)
             }
         </div>
     

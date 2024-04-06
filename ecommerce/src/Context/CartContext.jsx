@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import ToastyText from "../utilities/ToastyText";
+import { ToastyText } from "../utilities/ToastyText";
 
 export const CartContext = createContext();
 
@@ -30,10 +30,8 @@ export function CartProvider ({ children }){
         const productIndex = cart.findIndex(item => item.id === product.id);
         
         const stockAvailable = product.stock - (productIndex >= 0 ? cart[productIndex].quantity : 0);
-        //console.log('!!!cart index: ', typeof cart[productIndex].quantity ,'|', cart[productIndex].quantity, '||',product.stock , 'product stock: ', typeof product.stock)
         
         if(stockAvailable == 0){
-            //const alerta=(`no hay mas productos disponible. Stock: ${product.stock}`)
             ToastyText ('La cantidad seleccionada supera el stock disponible.')
         }
 

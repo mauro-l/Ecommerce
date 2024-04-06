@@ -1,9 +1,13 @@
 
-import { useContext } from 'react'
+//import components
 import Banner from '../Banner/Banner'
+
+//import context
+import { useContext } from 'react'
 import { WishContext } from '../../Context/WishContext'
-import { Link } from 'react-router-dom'
 import { CartContext } from '../../Context/CartContext'
+
+import { Link } from 'react-router-dom'
 
 function WishList() {
 
@@ -12,11 +16,11 @@ function WishList() {
 
     if(fav.length < 1 ){
         return (
+
             <div className='flex flex-col items-center justify-center p-10 my-3 text-xl'>
                 <h1 className='p-5'>No hay productos en Favoritos 💔</h1>
                 <img src="https://finofilipino.org/wp-content/uploads/2020/01/werfqwerfwerwergh.gif" className='w-60 md:w-80' alt="momento exacto en el que se le rompe el corazon" />
             </div>
-
         )
     }
 

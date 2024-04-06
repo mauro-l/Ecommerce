@@ -3,7 +3,7 @@
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
 
-function ToastyText(message, figure = null) {
+export function ToastyText(message, figure = null) {
 
   let icons;
   if (figure !== null){
@@ -31,4 +31,12 @@ function ToastyText(message, figure = null) {
   });
 }
 
-export default ToastyText
+export function alertModal (){
+  Swal.fire({
+    title: "Finalizando compra, aguarde unos segundos...",
+    timerProgressBar: true,
+    didOpen: () => {
+      Swal.showLoading();
+    }
+  });
+}

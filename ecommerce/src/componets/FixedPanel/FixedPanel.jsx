@@ -1,5 +1,5 @@
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import icons from './icons/icons'
 //import { Link } from 'react-router-dom'
 import CartWidget from '../CartWidget/CartWidget';
@@ -9,7 +9,37 @@ function FixedPanel() {
 
   const [isOpened, setOpened] = useState(false);
   const [asideContent, setAsideContent] = useState('');
-  const contentName = asideContent === 'fav' ? 'Favoritos' : 'Carrito';
+
+  const asideRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (asideRef.current && !asideRef.current.contains(event.target)) {
+        setOpened(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+ 
+  let contentName;
+
+  switch (asideContent) {
+    case 'fav':
+      contentName = 'Favoritos';
+      break;
+    case 'cart':
+      contentName = 'Carrito';
+      break;
+    case 'descuentos':
+      contentName = 'Descuentos';
+      break;
+    default:
+      contentName = ' ';
+  }
 
   const openAside = (content) =>{
     setAsideContent(content);
@@ -31,7 +61,6 @@ function FixedPanel() {
         className='flex items-center justify-center w-10 h-10 p-1 transition-all opacity-50 bg-ered md:h-14 md:w-14 hover:opacity-100'
         >
           <CartWidget icon={icons} />
-          {/* <Link to={'/cart'} ></Link> */}
         </button>
         <button 
           data-drawer-target="default-sidebar" 
@@ -46,7 +75,7 @@ function FixedPanel() {
           data-drawer-target="default-sidebar" 
           data-drawer-toggle="default-sidebar" 
           aria-controls="default-sidebar" type="button"
-          onClick={()=> openAside('Descuentos')}
+          onClick={()=> openAside('descuentos')}
           className='flex items-center justify-center w-10 h-10 p-1 transition-all opacity-50 bg-ered md:h-14 md:w-14 hover:opacity-100'
         >
             <img src={icons.descuento} className='w-7' alt="nuevo" />
@@ -57,12 +86,10 @@ function FixedPanel() {
           className={`fixed top-0 right-0 z-40 w-64 lg:w-80 h-screen transition-transform ${isOpened? '-translate-x-full' : ''} translate-x-0`} 
           id="default-sidebar" 
           aria-label="Sidebar"
+          ref={asideRef}
           >
             <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
               <div className='flex items-center justify-between gap-2 m-2'>
-                {/* <Link to={`/${asideContent}`}>
-                  <button onClick={closeAside} className='px-4 py-2 text-white bg-black'>Ir a {asideContent}</button>
-                </Link> */}
                 <button onClick={closeAside} className='text-black' >{/* boton de cerrar */}
                   <svg  xmlns="http://www.w3.org/2000/svg"  width="30"  height="30"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-x">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" />

@@ -1,14 +1,5 @@
 {
-    "rewrites": [
-      {"source": "/(.*)", "destination": "/index.html"}
-    ],    
-    "builds": [
-      { "src": "build", "use": "@vercel/static" }
-    ],
-    "routes": [
-      { "src": "/(.*).(js|css)", "headers": { "cache-control": "public, max-age=31536000, immutable" } },
-      { "src": "/(.*).(ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|otf|eot)", "headers": { "cache-control": "public, max-age=31536000, immutable" } },
-      { "src": "/.*", "dest": "/index.html" }
-    ]
+  "rewrites": [{ 
+      "source": "/(.*)",
+      "destination": "/" }]
 }
-  

@@ -1,12 +1,18 @@
 
-import { useEffect, useState } from "react"
+//import components
 import ItemDetail from "./ItemDetail/ItemDetail";
-import { useParams } from "react-router-dom";
-import { getApiDetails } from "../../services/productsDetail";
 import LoadingCard from "../Cards/LoadingCard";
+
+//import react functions
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom";
+
+//import service
+import { getApiDetails } from "../../services/productsDetail";
 
 const ItemDetailContainer = () => {
 
+  window.scrollTo(0, 0);
   const [product, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();

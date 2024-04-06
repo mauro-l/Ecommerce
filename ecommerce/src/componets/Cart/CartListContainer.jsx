@@ -1,12 +1,14 @@
 
-
-import { useContext, useState } from 'react';
+//import components
 import Banner from '../Banner/Banner';
-//import CartItem from './CartList/CartItem';
 import CartList from './CartList/CartList';
-//import ItemCount from '../ItemCount/ItemCount';
+
+//import misc
 import arrow from './arrow.svg'
 import empty from '../../assets/empty.png'
+
+//import react functions
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../Context/CartContext';
 

@@ -49,16 +49,19 @@ const ItemDetail = ({ product }) => {
     return (
         <div className='container p-4 mx-auto space-y-4 md:p-6'>
             <section className='flex flex-col mx-auto my-5 md:items-center md:flex-row px-14 md:justify-between md:gap-4'>
-                <picture className='lg:w-3/4'><img src={product.image} className='md:h-[450px] flex mx-auto py-2' alt={product.name} /></picture>
+                <picture className='lg:w-3/4'>
+                    <img src={product.image} className='md:h-[450px] flex mx-auto py-2' alt={product.name} />
+                </picture>
                 <article className='flex flex-col items-center justify-start py-3 mx-2 md:w-1/2'>
                     <div className='lg:ms-8'>
                         <div>
                             <p className='text-[#797C7F]'>{product.category}s</p>
                             <h2 className='text-3xl md:max-w-md'>{product.name}</h2>
                             <h3 className='my-1 text-sm text-gray-400 font-roboto'>{product.licence || subcategory}</h3>
-                            <div className='flex items-center gap-2'>
+                            <div className='relative flex items-center gap-2'>
                                 <p className='text-2xl me-3'>${product.price.toLocaleString()}</p>
                                 <StartRating/>
+                                <div className={`absolute top-6 text-xl text-red-600 ${product.stock ? 'hidden':''}`}>Producto sin stock.</div>
                             </div>
                         </div>
                         <div className='flex flex-wrap items-center content-center gap-3 my-5'>
@@ -75,6 +78,7 @@ const ItemDetail = ({ product }) => {
                                     <button 
                                         onClick={()=>addCart(product)} 
                                         className={`flex px-5 text-nowrap py-3 text-center text-white bg-black md:text-lg md:py-2 md:px-5`}
+                                        disabled={product.stock === 0}
                                     >                                        
                                         <img src={addCartSvg} className="md:me-2 md:h-6" alt="iconCart" />
                                         Agregar al carrito

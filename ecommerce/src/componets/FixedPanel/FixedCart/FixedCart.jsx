@@ -14,19 +14,12 @@ function FixedCart({ product, remove, name, cerrarModal, asideContent }) {
                     </Tooltip>
                 </div>
             </td>
-            {/* <td className="flex justify-between px-3 py-2 text-lg text-center text-gray-900 md:table-cell md:px-6 md:py-3 md:font-normal dark:text-white"> */}
             <td className="flex justify-between px-3 text-lg text-center text-gray-900 md:table-cell md:font-normal dark:text-white">
                 <p className='md:hidden'>price:</p>
                 <p>${product.price.toLocaleString()}</p>
             </td>
-            {/* <td className="order-5 px-3 py-2 text-center md:px-6 md:py-4 md:table-cell"> */}
-                    {/* <button onClick={remove} className="w-full py-2 text-lg text-white bg-ered">Remove</button> */}
             <td className="order-5 py-1 my-1 text-center">
                 <div className="flex justify-around">
-                    {/* <div className="flex justify-between text-lg text-center text-gray-900 md:table-cell md:font-normal dark:text-white">
-                        <p className='md:hidden'>price:</p>
-                        <p>${product.price}</p>
-                    </div> */}
                     <Link to={`/${asideContent}`} onClick={()=>cerrarModal()}>
                         <button  className='px-8 py-2 text-white bg-esky'>Ver en {name}</button>
                     </Link>

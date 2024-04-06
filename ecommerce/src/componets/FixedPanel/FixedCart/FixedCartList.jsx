@@ -1,6 +1,7 @@
 
 //import assets
 import emptyGif from '../../../assets/products/tenor.gif'
+import cat from '/src/assets/laught.png'
 
 //import componentes
 import FixedCart from "./FixedCart"
@@ -19,7 +20,18 @@ function FixedCartList({ content, name, cerrarModal, asideContent }) {
 
     const itemContent = content === 'fav' ? fav : cart;
     const removeItemContent = content === 'fav' ? removeItemFav : removeItemCart;
+
     
+
+    if(content === 'descuentos'){
+        return(
+            <article className="relative overflow-x-auto sm:rounded-lg">
+                <h2 className='p-3 mt-5 text-center'>Se terminó el verano, por lo tanto, se terminaron los descuentos</h2>
+                <img src={cat} alt="meme de gatitos" className='p-6 mx-auto' />
+            </article>
+        )
+    }
+    console.log(content)
     return (
         <article className="relative overflow-x-auto sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">

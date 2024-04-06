@@ -11,20 +11,10 @@ export const getApiDetails = async (params) =>{
     if(params.typeId === 'f'){
         const docRef = doc(db, 'funkos', params.productId)
         try{
-            /* 
-            const productRef = collection(db, "funkos");
-            const querySnapshot = await getDocs(productRef);
-            querySnapshot.forEach((doc) => {
-                
-            });
-            products = transformProductData(funkosProducts).product
-            */
             const funkosProducts = [];
             const res = await getDoc(docRef)
             funkosProducts.push({ ...res.data(), id: res.id });
             product = transformProductData(funkosProducts).product
-            /* product.push({ ...res.data(), id: res.id }); */
-            //return({ ...res.data(), id: res.id });
         }
         catch(err){
             console.log('error al cargar la categoria del producto', err);
@@ -32,15 +22,6 @@ export const getApiDetails = async (params) =>{
 
         return product;
     }
-    /* if(typeId === 'f'){
-        console.log('dentro del if de funkos: ', typeId)
-        try{
-            product = await getProductsbyId(productId);
-        }
-        catch(err){
-            console.log('error al cargar la categoria del producto', err);
-        }
-    } */
 
     if(params.typeId === 'p'){
         console.log('dentro del if de products: ', params.typeId)

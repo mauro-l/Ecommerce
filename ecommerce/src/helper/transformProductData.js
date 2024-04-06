@@ -14,7 +14,7 @@ export function transformProductData(products){
             licence: prod.licence || null,
             name: shortenName(prod.name || prod.title),
             price: prod.price,
-            stock: prod.stock || stockMeli,
+            stock: prod.stock || prod.stock === 0 ? prod.stock : stockMeli,
         })}
     )
 

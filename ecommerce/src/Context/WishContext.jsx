@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import ToastyText from "../utilities/ToastyText";
+import { ToastyText } from "../utilities/ToastyText";
 
 export const WishContext = createContext();
 
