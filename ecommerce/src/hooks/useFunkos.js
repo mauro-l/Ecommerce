@@ -17,7 +17,6 @@ export function useFunkos() {
             setLoading(true);
 
             try{
-                console.log('entra al custom hook para traer los funkos')
                 const productRef = collection(db, "funkos");
                 const querySnapshot = await getDocs(productRef);
                 const products = []

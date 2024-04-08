@@ -20,7 +20,7 @@ import { db } from "../services/config";
     };
 
 
-export async function createCheckout (purchase, cart, clearCart){
+export async function createCheckout (purchase, cart, clearCart, user){
 
 
     const buyerDetail = {...purchase, date: getCurrentDate() + ' ' + getCurrentTime()}
@@ -28,6 +28,14 @@ export async function createCheckout (purchase, cart, clearCart){
     let orderId;
     const batch = writeBatch(db);
     const outStock =[];
+
+    if(!user){
+        const orderRef = collection(db, 'orders');
+        const orderAdded = await addDoc(orderRef, buyerDetail);
+        orderId = orderAdded.id;
+        clearCart();
+        return { orderId, buyerDetail }
+    }
 
     try{
         const cartIds = cart.map(item=> item.id)

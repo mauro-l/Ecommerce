@@ -5,21 +5,21 @@ import arrow from '../arrow.svg'
 import { CartContext } from '/src/Context/CartContext';
 import { useForm } from 'react-hook-form';
 import { createCheckout } from '../../../hooks/createCheckout';
-import { alertModal } from '../../../utilities/ToastyText';
+import { alertModal } from '/src/utilities/ToastyText';
 import Swal from 'sweetalert2';
+import { authContext } from '/src/Context/AuthContext';
 
 const Checkout = () => {
 
     const { cart, totalPrice, clearCart, shipment } = useContext(CartContext);
+    const { user, check } = useContext(authContext)
     const { register, handleSubmit, reset } = useForm();
+
     const [selectedOption, setSelectedOption] = useState('Mercadopago');
+    
     const [isFormEmpty, setIsFormEmpty] = useState(true);
-    const [orderId, setOrderId] = useState(null);
-    const [buyerDetails, setBuyerDetails] = useState(null);
+    const [data, setData] = useState({orderId: null, buyerDetails: null, orderGenerated: false})
     const [loading, setLoading] = useState(null);
-    const [orderGenerated, setOrderGenerated] = useState(false);
-
-
 
     const basePrice = totalPrice();
     const finalCost = basePrice + shipment;
@@ -31,6 +31,10 @@ const Checkout = () => {
         setIsFormEmpty(true)
     }
 
+    const defaultValues = {
+        email: user?.email || ''
+    }
+
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             setIsFormEmpty(false);
@@ -39,7 +43,6 @@ const Checkout = () => {
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
-        console.log(selectedOption)
     };
 
     const purchase = (data) =>{
@@ -53,7 +56,7 @@ const Checkout = () => {
         return order;
     }
 
-    const finalizingAlerts = (checkoutId, purchaseDetail) =>{
+    const finalizingAlerts = (checkoutId, purchaseDetail) => {
         Swal.fire({
             title: "Compra realizada con éxito!",
             text: "A continuación podrá ver los detalles de su compra o pulse Salir para volver.",
@@ -63,52 +66,69 @@ const Checkout = () => {
             cancelButtonColor: "#000",
             confirmButtonText: "Ver detalles",
             cancelButtonText: "Volver",
-            footer: checkoutId
-          }).then((result) => {
+            footer: checkoutId,
+            allowOutsideClick: false // Evitar cerrar el modal haciendo clic fuera de él
+        }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire({
-                text: 'Detalles del pedido',
-                html: 
-                    `
-                        <div style={{ fontFamily: 'Roboto, sans-serif' }}>
-                            <p><strong>Cliente:</strong></p>
-                            <ul>
-                                <li>
-                                    <p><strong>Nombre:</strong> ${purchaseDetail.client.name}</p>
-                                    <p><strong>Apellido:</strong> ${purchaseDetail.client.lastname}</p>
-                                    <p><strong>Email:</strong> ${purchaseDetail.client.email}</p>
-                                    <p><strong>Hora de compra:</strong> ${purchaseDetail.date}</p>
-                                </li>
-                            </ul>
-                            <p><strong>Productos:</strong></p>
-                            <ul>
-                                ${purchaseDetail.products.map(prod => `
-                                <li>
-                                    <p><strong>Nombre:</strong> ${prod.name}</p>
-                                    <p><strong>Precio:</strong> $${prod.price.toLocaleString()}</p>
-                                    <p><strong>Cantidad:</strong> ${prod.quantity}</p>
-                                </li>
-                                `).join('')}
-                            </ul>
-                            <p><strong>Tipo de envío:</strong> ${purchaseDetail.shipment}</p>
-                            <p><strong>Método de pago:</strong> ${purchaseDetail.payment}</p>
-                            <p><strong>Total:</strong> $${purchaseDetail.total.toLocaleString()}</p>
-                        </div>
-                    `
-                
-              });
+                Swal.fire({
+                    title: 'Detalles del pedido',
+                    html:
+                        `
+                            <div style="font-family: 'Roboto, sans-serif'">
+                                <p><strong>Cliente:</strong></p>
+                                <ul>
+                                    <li>
+                                        <p><strong>Nombre:</strong> ${purchaseDetail.client.name}</p>
+                                        <p><strong>Apellido:</strong> ${purchaseDetail.client.lastname}</p>
+                                        <p><strong>Email:</strong> ${purchaseDetail.client.email}</p>
+                                        <p><strong>Hora de compra:</strong> ${purchaseDetail.date}</p>
+                                    </li>
+                                </ul>
+                                <p><strong>Productos:</strong></p>
+                                <ul>
+                                    ${purchaseDetail.products.map(prod => `
+                                    <li>
+                                        <p><strong>Nombre:</strong> ${prod.name}</p>
+                                        <p><strong>Precio:</strong> $${prod.price.toLocaleString()}</p>
+                                        <p><strong>Cantidad:</strong> ${prod.quantity}</p>
+                                    </li>
+                                    `).join('')}
+                                </ul>
+                                <p><strong>Tipo de envío:</strong> ${purchaseDetail.shipment}</p>
+                                <p><strong>Método de pago:</strong> ${purchaseDetail.payment}</p>
+                                <p><strong>Total:</strong> $${purchaseDetail.total.toLocaleString()}</p>
+                            </div>
+                        `,
+                    showCancelButton: false,
+                    confirmButtonColor: "#6FC9CD",
+                    confirmButtonText: "OK",
+                    allowOutsideClick: false
+                }).then(() => {
+                    window.location.href = "/";
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                window.location.href = "/";
             }
-          });
+        });
     }
+    
+    
+    
     
     const submit = async (data) => {
         const buyer = purchase(data);
         setLoading(true); 
-        setOrderGenerated(true);
+        setData(prevData => ({
+            ...prevData,
+            orderGenerated: true,
+        }));
         try {
-            const { orderId, buyerDetail } = await createCheckout(buyer, cart, clearCart);
-            setOrderId(orderId);
-            setBuyerDetails(buyerDetail);
+            const { orderId, buyerDetail } = await createCheckout(buyer, cart, clearCart, user);
+            setData(prevData => ({
+                ...prevData,
+                orderId: orderId, 
+                buyerDetails: buyerDetail
+            }));
         } catch (error) {
             console.error(error);
         } finally {
@@ -116,21 +136,20 @@ const Checkout = () => {
         }
     };
     
-    if(loading && orderGenerated){
-        alertModal(loading, orderId)
+    console.log(!loading && data.orderId)
+    if(loading && data.orderGenerated){
+        alertModal(loading, data.orderId)
     }
-    if(orderGenerated && !loading && orderId){
-        finalizingAlerts(orderId, buyerDetails)
+    if(data.orderGenerated && !loading && data.orderId){
+        finalizingAlerts(data.orderId, data.buyerDetails)
     }
-    if(orderGenerated && !loading && !orderId){
+    if(data.orderGenerated && !loading && !data.orderId){
         Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Something went wrong!"
+            text: "Problemas al concretar la compra."
         });
     }
-
-    console.log(shipment)
     
     return (
         <div className="">
@@ -255,6 +274,7 @@ const Checkout = () => {
                                     type="email"
                                     className="font-roboto block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
                                     placeholder=" " required 
+                                    defaultValue={check ? defaultValues.email : ''}
                                     onKeyDown={handleKeyDown}
                                     {...register('email')}
                                 />

@@ -11,12 +11,14 @@ import empty from '../../assets/empty.png'
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../Context/CartContext';
+import { authContext } from '../../Context/AuthContext';
 
 export default function CartListContainer() {
 
     const { clearCart, cart, totalPrice, setShipmet } = useContext(CartContext);
 
     const [shippingMethod, setShippingMethod] = useState('retiro');
+    const { user, check, setCheck } = useContext(authContext);
 
     const shippingCost = {
         retiro: 0,
@@ -30,6 +32,10 @@ export default function CartListContainer() {
 
     const basePrice = totalPrice();
     const finalCost = basePrice + shippingCost[shippingMethod];
+
+    const handleCheckbox = (event) =>{
+        setCheck(event.target.checked)
+    }
 
   return (
     <>
@@ -145,6 +151,10 @@ export default function CartListContainer() {
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div className={`mt-4 text-gray-500 font-roboto ${user ? '' : 'hidden'}`}>
+                    <input type="checkbox" name="auth" checked={check} onChange={handleCheckbox} className='mb-1 rounded me-2' />
+                    Continuar compra como user
                 </div>
                 <Link to={'/cart/checkout'} onClick={()=>setShipmet(shippingCost[shippingMethod])}>
                     <button className='w-full py-2 my-3 text-white border border-white bg-esky'>Continuar con el pago</button>

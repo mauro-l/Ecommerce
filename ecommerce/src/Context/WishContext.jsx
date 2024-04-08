@@ -1,11 +1,17 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { ToastyText } from "../utilities/ToastyText";
 
 export const WishContext = createContext();
 
+const favInit = JSON.parse(localStorage.getItem('fav')) || [];
+
 export function WishProvider({ children }){
 
-    const [fav, setFav] = useState([]);
+    const [fav, setFav] = useState(favInit);
+
+    useEffect (()=>{
+        localStorage.setItem('fav', JSON.stringify(fav));
+    }, [fav])
 
     const checkProductInFav = (product) =>{ 
         return fav.some(prod => prod.id === product.id); 

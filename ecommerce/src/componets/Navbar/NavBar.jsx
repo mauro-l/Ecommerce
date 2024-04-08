@@ -1,12 +1,25 @@
 import { useState } from 'react';
 import logo from './logo.png'
 import { Link, NavLink } from 'react-router-dom';
-import cat from '/src/assets/laught.png'
+import {useAuth} from '/src/Context/AuthContext'
 
 function NavBar() {
 
   const [mostrarMenu, setmostrarMenu] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const auth = useAuth()
+  const user = auth.user
+
+  const { displayName, email, photoURL } = auth.user
+
+  const handleLogin = (event) =>{
+    event.preventDefault()
+    auth.login()
+  }
+  const handleLogout = () =>{
+    auth.logout();
+    toggleMenu();
+  }
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -32,21 +45,29 @@ function NavBar() {
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
           </Link>
           <div className="flex md:order-2">
-              <button type="button" onClick={toggleMenu} data-collapse-toggle="navbar-search" aria-haspopup="true" aria-expanded={isOpen ? 'true' : 'false'} className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
-                {/* <a href="#" className="text-lg text-blue-600 dark:text-blue-500 hover:underline">Login</a> */}
+              <button onClick={(event)=> handleLogin(event)} className={`text-lg dark:text-blue-500 hover:underline ${user ? 'hidden' : '' }`}>Login</button>
+              <button 
+                type="button" 
+                onClick={toggleMenu} 
+                data-collapse-toggle="navbar-search" 
+                aria-haspopup="true" 
+                aria-expanded={isOpen ? 'true' : 'false'} 
+                className={`text-gray-500 ${user ? '' : 'hidden' } dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1`}
+                >
                 <span className="sr-only">Open user menu</span>
-                <img className="w-8 h-8 rounded-full" src={cat} alt="user photo"/>
+                <img className="w-8 h-8 rounded-full md:h-10 md:w-10" src={photoURL} alt="user photo"/>
               </button>
               {/* Dropdown menu */}
               {isOpen && (
-                <div className="absolute right-0 z-50 w-56 mt-12 origin-top-right bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+                <div className="absolute right-0 z-50 w-56 origin-top-right bg-white divide-y divide-gray-100 rounded-lg shadow mt-14 dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
                   <div className="px-4 py-3">
-                    <span className="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-                    <span className="block text-sm text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+                    <span className="block text-sm text-gray-900 dark:text-white">{displayName}</span>
+                    <span className="block text-sm text-gray-500 truncate dark:text-gray-400">{email}</span>
                   </div>
                   <ul className="py-2" aria-labelledby="user-menu-button">
                     <li>
-                      <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                      <button onClick={()=>handleLogout()} className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      >Sign out</button>
                     </li>
                   </ul>
                 </div>
@@ -72,19 +93,19 @@ function NavBar() {
                 <li>
                 <NavLink 
                   to="/" 
-                  className={(navData) => navData.isActive ? 'block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500' : 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'}
+                  className={(navData) => navData.isActive ? 'block py-2 px-3 text-white bg-red-700 rounded md:bg-transparent md:text-red-700 md:p-0 md:dark:text-red-500' : 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'}
                 >Home</NavLink>
                 </li>
                 <li>
                 <NavLink 
                   to="/shop" 
-                  className={(navData) => navData.isActive ? 'block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500' : 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'}
+                  className={(navData) => navData.isActive ? 'block py-2 px-3 text-white bg-red-700 rounded md:bg-transparent md:text-red-700 md:p-0 md:dark:text-red-500' : 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'}
                 >Shop</NavLink>
                 </li>
                 <li>
                 <NavLink 
                   to="/about" 
-                  className={(navData) => navData.isActive ? 'block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500' : 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'}
+                  className={(navData) => navData.isActive ? 'block py-2 px-3 text-white bg-red-700 rounded md:bg-transparent md:text-red-700 md:p-0 md:dark:text-red-500' : 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'}
                 >About</NavLink>
                 </li>
             </ul>

@@ -4,7 +4,6 @@ import { db } from "./config";
 import { transformProductData } from "../helper/transformProductData";
 
 export const getApiDetails = async (params) =>{
-    console.log('asdfsdfa, ', params)
 
     let product = [];
 
@@ -24,7 +23,6 @@ export const getApiDetails = async (params) =>{
     }
 
     if(params.typeId === 'p'){
-        console.log('dentro del if de products: ', params.typeId)
         try{
             const productsMeli = [];
             const res = await fetch(`https://api.mercadolibre.com/items/${params.productId}`);
@@ -33,7 +31,7 @@ export const getApiDetails = async (params) =>{
             product = transformProductData(productsMeli).product;
         }
         catch (err){
-            console.log('error al conseguir la categoria del producto: ', err);            
+            throw new err
         }
 
         return product;

@@ -9,12 +9,12 @@ import ItemListContainer from "./componets/ItemListContainer/ItemListContainer"
 import ItemDetailContainer from './componets/ItemDetailContainer/ItemDetailContainer';
 import Checkout from './componets/Cart/Checkout/Checkout';
 import { CartProvider } from './Context/CartContext';
-import { FooterLog } from './utilities/FooterLog';
 import CartListContainer from './componets/Cart/CartListContainer';
 import ErrorWeb from './utilities/ErrorWeb';
 import { WishProvider } from './Context/WishContext';
 import { SuggestProvider } from './Context/SuggestContext';
 import { FilterProvider } from './Context/FilterContext';
+import { AuthProvider } from './Context/AuthContext';
 
 function App() {
 
@@ -24,6 +24,7 @@ function App() {
       <WishProvider>
         <FilterProvider>
           <BrowserRouter>
+              <AuthProvider>
               <NavBar/>
               <SuggestProvider>
               <Routes>
@@ -39,7 +40,7 @@ function App() {
               </SuggestProvider>
               <FixedPanel/>
               <Footer />
-              <FooterLog />
+              </AuthProvider>
           </BrowserRouter>
         </FilterProvider>
       </WishProvider>

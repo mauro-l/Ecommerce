@@ -1,17 +1,22 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { ToastyText } from "../utilities/ToastyText";
 
 export const CartContext = createContext();
 
+const cartInit = JSON.parse(localStorage.getItem('cart')) || [];
+
 export function CartProvider ({ children }){
 
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(cartInit);
     const [shipment, setShipmet] = useState(0);
+
+    useEffect (()=>{
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart])
 
     const checkProductInCart = (product) =>{ 
         return cart.some(prod => prod.id === product.id); 
     }
-
     
     const subtractQuantity = (product) => {
 
