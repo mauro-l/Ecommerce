@@ -33,7 +33,8 @@ function AboutMe() {
         const commentData = {
             name: data.name,
             message: data.message,
-            mail: user.email
+            mail: user.email,
+            img: user.photoURL
         }
 
         const commentDetail = {...commentData, date: getCurrentDate() + ' ' + getCurrentTime()}
