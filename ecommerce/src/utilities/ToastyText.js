@@ -12,7 +12,6 @@ export function ToastyText(message, figure = null) {
     icons = "warning"
   }
 
-  console.log('pasa por el componente toast')
   const Toasty = Swal.mixin({
     toast: true,
     position: 'top-end',

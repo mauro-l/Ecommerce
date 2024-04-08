@@ -1,12 +1,19 @@
 
-import { useContext, useState } from 'react'
+//import components
 import Banner from '../../Banner/Banner'
-import arrow from '../arrow.svg'
-import { CartContext } from '/src/Context/CartContext';
+
+//import react functions
+import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { createCheckout } from '../../../hooks/createCheckout';
+    
+//import misc & utilities
 import { alertModal } from '/src/utilities/ToastyText';
+import arrow from '../arrow.svg'
 import Swal from 'sweetalert2';
+
+//import context
+import { CartContext } from '/src/Context/CartContext';
+import { createCheckout } from '/src/hooks/createCheckout';
 import { authContext } from '/src/Context/AuthContext';
 
 const Checkout = () => {
@@ -16,7 +23,6 @@ const Checkout = () => {
     const { register, handleSubmit, reset } = useForm();
 
     const [selectedOption, setSelectedOption] = useState('Mercadopago');
-    
     const [isFormEmpty, setIsFormEmpty] = useState(true);
     const [data, setData] = useState({orderId: null, buyerDetails: null, orderGenerated: false})
     const [loading, setLoading] = useState(null);
@@ -67,7 +73,7 @@ const Checkout = () => {
             confirmButtonText: "Ver detalles",
             cancelButtonText: "Volver",
             footer: checkoutId,
-            allowOutsideClick: false // Evitar cerrar el modal haciendo clic fuera de él
+            allowOutsideClick: false 
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
@@ -104,16 +110,13 @@ const Checkout = () => {
                     confirmButtonText: "OK",
                     allowOutsideClick: false
                 }).then(() => {
-                    window.location.href = "/";
+                    window.location.href = "/about";
                 });
             } else if (result.dismiss === Swal.DismissReason.cancel) {
-                window.location.href = "/";
+                window.location.href = "/about";
             }
         });
     }
-    
-    
-    
     
     const submit = async (data) => {
         const buyer = purchase(data);
@@ -136,7 +139,6 @@ const Checkout = () => {
         }
     };
     
-    console.log(!loading && data.orderId)
     if(loading && data.orderGenerated){
         alertModal(loading, data.orderId)
     }

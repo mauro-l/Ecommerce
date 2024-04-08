@@ -10,8 +10,6 @@ export const getApiProducts = async ({ category, subCategory, limits }) => {
     let header;
     const licences = ['Star Wars', 'Harry Potter', 'Naruto', 'Pokemon', 'One Piece'];
     
-    console.log('service; ', category, '| subcategory; ', subCategory, '| limites: ', limits)
-    
     if (category === 'funkos'){
         if(!licences.includes(subCategory) && subCategory){
             throw new Error(`La subcategoría "${subCategory}" no válida para funkos`);
@@ -71,8 +69,6 @@ export const getApiProducts = async ({ category, subCategory, limits }) => {
             url += `&limit=${limits}`;
         }
         
-        console.log('URL::', url)
-
         try{
             const response = await fetch(url);
             const json = await response.json();

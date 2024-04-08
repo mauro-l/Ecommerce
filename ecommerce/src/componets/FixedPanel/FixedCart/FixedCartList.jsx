@@ -31,7 +31,7 @@ function FixedCartList({ content, name, cerrarModal, asideContent }) {
             </article>
         )
     }
-    console.log(content)
+    
     return (
         <article className="relative overflow-x-auto sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">

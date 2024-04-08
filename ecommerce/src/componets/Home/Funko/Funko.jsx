@@ -5,9 +5,9 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import { EffectCoverflow, Autoplay } from 'swiper/modules';
 
+//import assets
 import funkoImg from './FunkoPop.webp'
 import './funko.css';
-
 
 //hooks
 import useFunkos from '../../../hooks/useFunkos';

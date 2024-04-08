@@ -15,6 +15,7 @@ import { WishProvider } from './Context/WishContext';
 import { SuggestProvider } from './Context/SuggestContext';
 import { FilterProvider } from './Context/FilterContext';
 import { AuthProvider } from './Context/AuthContext';
+import AboutMe from './componets/About/AboutMe';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
                 <Route path='/*' element={<ErrorWeb />} />
                 <Route path='/cart' element={<CartListContainer />} />
                 <Route path='/cart/checkout' element={<Checkout />} />
+                <Route path='/about' element={<AboutMe />} />
               </Routes>
               </SuggestProvider>
               <FixedPanel/>

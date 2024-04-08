@@ -1,17 +1,22 @@
 
+//import assets
 import mangas from './bg/comics.png'
 import funkos from '../../assets/products/harry-potter/harry-1.webp'
 import libros from './bg/libros.jpg'
+
+//import components
 import Hero from "./Hero"
 import Novedades from './Novedades/Novedades'
 import Libros from './Libros/Libros'
 import Products from './Products/Products'
 import Funko from './Funko/Funko'
 import Newsletter from '../Newsletter/Newsletter'
+
+//import react functions
 import { Link } from 'react-router-dom'
 
+
 const Home = () => {
-    console.log('--- se renderiza home ----')
   return (
     <section>
         <Hero />

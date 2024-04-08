@@ -11,8 +11,6 @@ export default function useFetchData() {
 
     const getProducts = useCallback(async ({ category, limits }) =>{
 
-        console.log('hook; ', category, 'limites: ', limits)
-
         try{
             setLoading(true);
             const newProducts = await getApiProducts({ category, limits });
